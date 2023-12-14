@@ -1,0 +1,3 @@
+let currentExercise = {}
+
+let savedExercises = []

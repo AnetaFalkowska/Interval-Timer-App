@@ -1,0 +1,19 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+    width: 300px
+}
+
+.card {
+  padding: 6px 15px;
+  text-align: center;
+}
+
+.start-button {
+    display: block;
+    margin: 0 auto;
+  }
