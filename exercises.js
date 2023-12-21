@@ -1,3 +1,0 @@
-let currentExercise = {}
-
-let savedExercises = []
