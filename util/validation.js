@@ -19,6 +19,7 @@ export function isValidDuration(value) {
 }
 
 export function isValidSets(value) {
+  if (value <= 0) return false
   const parsedValue = parseInt(value, 10);
   return !isNaN(parsedValue) && parsedValue.toString() === value.toString();
 }
