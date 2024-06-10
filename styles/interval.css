@@ -1,7 +1,19 @@
+form {
+  text-align: center;
+}
+
+.form-item {
+  border: solid 1px rgb(189, 195, 201);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 15px;
+  box-shadow: 2px 2px 6px grey;
+}
 
 .icon {
   margin-right: 8px;
-  color: #1ca865
+  color: #1ca865;
 }
 
 .form-control {
@@ -11,20 +23,7 @@
 }
 
 .form-control::placeholder {
-  color:rgb(175, 173, 173)
-}
-
-.mb-3 {
-  border: solid 1px rgb(189, 195, 201);
-  border-radius: 10px;
-  text-align: center;
-  font-weight: bold;
-  padding-top:15px;
-  box-shadow: 2px 2px 6px grey
-}
-
-form {
-  text-align: center;
+  color: rgb(175, 173, 173);
 }
 
 .buttons-container {
@@ -32,8 +31,24 @@ form {
   justify-content: space-between;
 }
 
-.buttons-container button
- {
-font-size: 20px;
-padding:12px
- }
+.buttons-container button {
+  font-size: 20px;
+  padding: 12px;
+}
+
+.feedback {
+  display: none;
+  color: red;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 5px auto;
+}
+
+input.invalid {
+  border: solid 1px red;
+  background-color: rgb(240, 213, 217);
+}
+
+.invalid.feedback {
+  display: block;
+}

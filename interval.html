@@ -22,7 +22,7 @@
   <body>
     <div class="container">
       <form>
-        <div class="mb-3">
+        <div class="mb-3 form-item">
           <label for="prepare" class="form-label"
             ><i data-lucide="loader-circle" class="icon"></i>Prepare</label
           >
@@ -32,9 +32,13 @@
             class="form-control js-duration"
             id="prepare"
             data-id="Prepare"
+            required
           />
+          <div class="feedback feedback-Prepare">
+            Please enter time in mm:ss format!
+          </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 form-item">
           <label for="work" class="form-label"
             ><i data-lucide="biceps-flexed" class="icon"></i>Work</label
           >
@@ -45,8 +49,11 @@
             id="work"
             data-id="Work"
           />
+          <div class="feedback feedback-Work">
+            Please enter time in mm:ss format!
+          </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 form-item">
           <label for="rest" class="form-label"
             ><i data-lucide="circle-ellipsis" class="icon"></i>Rest</label
           >
@@ -57,8 +64,11 @@
             id="rest"
             data-id="Rest"
           />
+          <div class="feedback feedback-Rest">
+            Please enter time in mm:ss format!
+          </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 form-item">
           <label for="coolDown" class="form-label"
             ><i data-lucide="fan" class="icon"></i>Cool Down</label
           >
@@ -69,8 +79,11 @@
             id="coolDown"
             data-id="CoolDown"
           />
+          <div class="feedback feedback-CoolDown">
+            Please enter time in mm:ss format!
+          </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 form-item">
           <label for="sets" class="form-label"
             ><i data-lucide="chevrons-right" class="icon"></i>Sets</label
           >
@@ -81,12 +94,15 @@
             id="sets"
             data-id="sets"
           />
+          <div class="feedback feedback-sets">
+            Plese enter an integer greater than 0!
+          </div>
         </div>
-        <div class="buttons-container ">          
-          <button class="btn btn-warning save-to-preset js-save-to-preset">
+        <div class="buttons-container ">    
+          <button type="button" class="btn btn-warning js-save-to-preset" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Save to Preset
-          </button>
-          <button class="btn btn-primary start-button js-start-exercise">
+          </button>      
+          <button class="btn btn-primary start-button js-start-exercise" type="submit">
             Quick Start
           </button>
         </div>

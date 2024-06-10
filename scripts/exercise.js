@@ -26,10 +26,8 @@ function countDown({ id, durationInSeconds }) {
 
     const colorClass = colorClasses[id] || "";
     const card = document.querySelector(".js-card")
-    card.className = 'card js-card'
-    console.log(card.classList)
-    card.classList.add(colorClass);
-    console.log(card.classList)
+    card.className = 'card js-card'    
+    card.classList.add(colorClass);  
     const phaseName = document.querySelector(".js-phase-name");
     phaseName.innerHTML = id;
     const phaseDuration = document.querySelector(".js-phase-duration");
