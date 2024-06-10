@@ -13,6 +13,7 @@ function gatherDurations() {
   return Array.from(document.querySelectorAll(".js-duration")).map((el) => ({
     id: el.dataset.id,
     durationInSeconds: convertToSeconds(el.value),
+    
   }));
 }
 
@@ -29,4 +30,6 @@ document.querySelector(".js-start-exercise").addEventListener("click", (e) => {
   exercises.push(...durations, setsData);
   localStorage.setItem("currentExercise", JSON.stringify(exercises))
 });
+
+
 

@@ -17,18 +17,30 @@ document.querySelector(".js-phase-duration").innerHTML = convertToTimeString(
 
 function countDown({ id, durationInSeconds }) {
   return new Promise((res) => {
-    document.querySelector(".js-phase-name").innerHTML = id;
-    let i = durationInSeconds;
-    document.querySelector(".js-phase-duration").innerHTML =
-      convertToTimeString(i);
+    const colorClasses = {
+      Prepare: "prepare",
+      Work: "work",
+      Rest: "rest",
+      CoolDown: "cool-down",
+    };
+
+    const colorClass = colorClasses[id] || "";
+    const card = document.querySelector(".js-card")
+    card.className = 'card js-card'
+    console.log(card.classList)
+    card.classList.add(colorClass);
+    console.log(card.classList)
+    const phaseName = document.querySelector(".js-phase-name");
+    phaseName.innerHTML = id;
+    const phaseDuration = document.querySelector(".js-phase-duration");
+    phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
     const identifier = setInterval(() => {
-      i--;
-      if (i < 0) {
+      durationInSeconds--;
+      if (durationInSeconds < 0) {
         clearInterval(identifier);
         res();
       } else {
-        document.querySelector(".js-phase-duration").innerHTML =
-          convertToTimeString(i);
+        phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
       }
     }, 1000);
   });
@@ -44,8 +56,6 @@ function createPhasesArray(exercise) {
 }
 
 const phasesArray = createPhasesArray(currentExercise);
-console.log(phasesArray);
-
 
 const countDownArray = phasesArray.map((el) => {
   const newFunction = () => {
@@ -59,7 +69,6 @@ console.log(countDownArray);
 countDownArray
   .reduce((chain, countDownFn) => chain.then(countDownFn), Promise.resolve())
   .then(() => alert("koniec"));
-
 
 // const prepareCountDown = () => {
 //   return countDown(currentExercise[0]);
@@ -79,3 +88,10 @@ countDownArray
 //   .then(restCountDown)
 //   .then(cooldownCountDown)
 //   .then(() => alert("koniec"));
+
+/////////////////////////
+
+//const countDownArray = createPhasesArray(currentExercise).map(phase => countDown(phase));
+
+//countDownArray.reduce((chain, phase) => chain.then(() => phase), Promise.resolve())
+// .then(() => alert("koniec"));
