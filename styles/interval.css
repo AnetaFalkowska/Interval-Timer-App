@@ -16,7 +16,7 @@ form {
   color: #1ca865;
 }
 
-.form-control {
+.form-item .form-control {
   border: none;
   text-align: center;
   font-size: 30px;
@@ -46,7 +46,6 @@ form {
 
 input.invalid {
   border: solid 1px red;
-  background-color: rgb(240, 213, 217);
 }
 
 .invalid.feedback {
