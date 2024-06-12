@@ -1,12 +1,6 @@
 import { currentExercise as exercises } from "../data/exercises.js";
-import { isValidDuration, isValidSets } from "../util/validation.js";
-
-function convertToSeconds(time) {
-  const timeArray = time.split(":");
-  const minutes = parseInt(timeArray[0], 10);
-  const seconds = parseInt(timeArray[1], 10);
-  return minutes * 60 + seconds;
-}
+import { isValidDuration, isValidSets } from "./utils/validation.js";
+import {convertToSeconds} from "./utils/time.js"
 
 function gatherDurations() {
   return Array.from(document.querySelectorAll(".js-duration")).map((el) => ({

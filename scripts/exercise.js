@@ -1,5 +1,9 @@
 import { currentExercise } from "../data/exercises.js";
 
+let stopCountdown = false;
+let currentPhaseIndex = 0;
+let remainingIntervalTime = null;
+
 function convertToTimeString(seconds) {
   const stringMinutes = Math.floor(seconds / 60);
   const stringSeconds = seconds % 60;
@@ -16,7 +20,12 @@ document.querySelector(".js-phase-duration").innerHTML = convertToTimeString(
 );
 
 function countDown({ id, durationInSeconds }) {
-  return new Promise((res) => {
+  return new Promise((res, rej) => {
+    if (stopCountdown) {
+      rej("Countdown stopped");
+      return;
+    }
+
     const colorClasses = {
       Prepare: "prepare",
       Work: "work",
@@ -25,17 +34,24 @@ function countDown({ id, durationInSeconds }) {
     };
 
     const colorClass = colorClasses[id] || "";
-    const card = document.querySelector(".js-card")
-    card.className = 'card js-card'    
-    card.classList.add(colorClass);  
+    const card = document.querySelector(".js-card");
+    card.className = "card js-card";
+    card.classList.add(colorClass);
     const phaseName = document.querySelector(".js-phase-name");
     phaseName.innerHTML = id;
     const phaseDuration = document.querySelector(".js-phase-duration");
     phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
-    const identifier = setInterval(() => {
+
+    const intervalIdentifier = setInterval(() => {
+      if (stopCountdown) {
+        clearInterval(intervalIdentifier);
+        remainingIntervalTime = durationInSeconds;
+        rej("Countdown stopped");
+        return;
+      }
       durationInSeconds--;
       if (durationInSeconds < 0) {
-        clearInterval(identifier);
+        clearInterval(intervalIdentifier);
         res();
       } else {
         phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
@@ -55,18 +71,41 @@ function createPhasesArray(exercise) {
 
 const phasesArray = createPhasesArray(currentExercise);
 
-const countDownArray = phasesArray.map((el) => {
-  const newFunction = () => {
-    return countDown({ id: el.id, durationInSeconds: el.durationInSeconds });
-  };
-  return newFunction;
-});
+function startCountdown(startIndex = 0) {
+  const countDownArray = phasesArray.slice(startIndex).map((el, index) => {
+    const newFunction = () => {
+      currentPhaseIndex = startIndex + index;
+      return countDown({
+        id: el.id,
+        durationInSeconds:
+          remainingIntervalTime !== null && index === 0
+            ? remainingIntervalTime
+            : el.durationInSeconds,
+      });
+    };
+    return newFunction;
+  });
 
-console.log(countDownArray);
+  countDownArray
+    .reduce((chain, countDownFn) => chain.then(countDownFn), Promise.resolve())
+    .then(() => alert("koniec"))
+    .catch((error) => console.log(error));
+}
 
-countDownArray
-  .reduce((chain, countDownFn) => chain.then(countDownFn), Promise.resolve())
-  .then(() => alert("koniec"));
+startCountdown();
+
+document
+  .querySelector(".js-stop-countdown")
+  .addEventListener("click", function () {
+    if (stopCountdown) {
+      stopCountdown = false;
+      this.innerHTML = "Stop";
+      startCountdown(currentPhaseIndex);
+    } else {
+      stopCountdown = true;
+      this.innerHTML = "Continue";
+    }
+  });
 
 // const prepareCountDown = () => {
 //   return countDown(currentExercise[0]);
