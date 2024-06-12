@@ -1,8 +1,13 @@
 import { currentExercise } from "../data/exercises.js";
 
+const remainingTimeFlag = document.querySelector('.js-remaining-time')
+const card = document.querySelector(".js-card");
+const phaseName = document.querySelector(".js-phase-name");
+const phaseDuration = document.querySelector(".js-phase-duration");
 let stopCountdown = false;
 let currentPhaseIndex = 0;
 let remainingIntervalTime = null;
+let remainingTotalTime;
 
 function convertToTimeString(seconds) {
   const stringMinutes = Math.floor(seconds / 60);
@@ -15,9 +20,9 @@ function convertToTimeString(seconds) {
   return timeString;
 }
 
-document.querySelector(".js-phase-duration").innerHTML = convertToTimeString(
-  currentExercise[0].durationInSeconds
-);
+// document.querySelector(".js-phase-duration").innerHTML = convertToTimeString(
+//   currentExercise[0].durationInSeconds
+// );
 
 function countDown({ id, durationInSeconds }) {
   return new Promise((res, rej) => {
@@ -25,6 +30,8 @@ function countDown({ id, durationInSeconds }) {
       rej("Countdown stopped");
       return;
     }
+    
+    remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime)   
 
     const colorClasses = {
       Prepare: "prepare",
@@ -34,14 +41,14 @@ function countDown({ id, durationInSeconds }) {
     };
 
     const colorClass = colorClasses[id] || "";
-    const card = document.querySelector(".js-card");
+    
     card.className = "card js-card";
     card.classList.add(colorClass);
-    const phaseName = document.querySelector(".js-phase-name");
+    
     phaseName.innerHTML = id;
-    const phaseDuration = document.querySelector(".js-phase-duration");
+    
     phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
-
+    ;
     const intervalIdentifier = setInterval(() => {
       if (stopCountdown) {
         clearInterval(intervalIdentifier);
@@ -50,15 +57,34 @@ function countDown({ id, durationInSeconds }) {
         return;
       }
       durationInSeconds--;
+      remainingTotalTime--;
+      console.log(remainingTotalTime)
       if (durationInSeconds < 0) {
         clearInterval(intervalIdentifier);
         res();
       } else {
         phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
+        remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime);
       }
     }, 1000);
   });
 }
+
+function createCountDownArray(exercise) {
+  const array = [];
+  const countDownDurations = exercise.map(el => {return el.durationInSeconds ? {...el, durationInSeconds: el.durationInSeconds-1} : {...el}})
+  const numberOfSets = exercise[4].sets;
+  for (let i = 0; i < numberOfSets; i++) {
+    array.push(countDownDurations[1], countDownDurations[2]);
+  }
+  return [countDownDurations[0], ...array, countDownDurations[3]];
+}
+
+const phasesArray = createCountDownArray(currentExercise);
+
+const TotalExerciseTime = phasesArray.reduce((accumulator, phase) => {return accumulator + phase.durationInSeconds + 1},-1)
+console.log(remainingTotalTime)
+remainingTotalTime = TotalExerciseTime;
 
 function createPhasesArray(exercise) {
   const array = [];
@@ -68,8 +94,6 @@ function createPhasesArray(exercise) {
   }
   return [exercise[0], ...array, exercise[3]];
 }
-
-const phasesArray = createPhasesArray(currentExercise);
 
 function startCountdown(startIndex = 0) {
   const countDownArray = phasesArray.slice(startIndex).map((el, index) => {
