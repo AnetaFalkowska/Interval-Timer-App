@@ -1,22 +1,22 @@
-import { currentExercise as exercises } from "../data/exercises.js";
 import { isValidDuration, isValidSets } from "./utils/validation.js";
 import { convertToSeconds } from "./utils/time.js"
 
+const exercisesPhases = document.querySelectorAll(".js-duration");
+const setsInput = document.querySelector(".js-sets");
+const quickStartButton = document.querySelector(".js-quickStart-exercise")
 
 window.addEventListener("load", () => {
   localStorage.removeItem("currentExercise")
 });
 
-function gatherDurations() {
-  return Array.from(document.querySelectorAll(".js-duration")).map((el) => ({
-    id: el.dataset.id,
-    durationInSeconds: convertToSeconds(el.value),
-  }));
-}
+function collectIntervalData() {
+  const phasesArray = Array.from(exercisesPhases).map((el) => ({
+      id: el.dataset.id,
+      durationInSeconds: convertToSeconds(el.value),
+    }))
 
-function gatherSetsData() {
-  const sets = document.querySelector("#sets");
-  return { id: sets.dataset.id, sets: parseInt(sets.value) };
+    const setsData = { id: setsInput.dataset.id, sets: parseInt(setsInput.value) }
+    return [...phasesArray, setsData]
 }
 
 function validateForm() {
@@ -26,17 +26,16 @@ function validateForm() {
 
   const invalidInputs = [];
 
-  document.querySelectorAll(".js-duration").forEach((input) => {
+  exercisesPhases.forEach((input) => {
     if (!input.value || (input.value && !isValidDuration(input.value))) {
       input.classList.add("invalid");
       invalidInputs.push(input);
     }
   });
 
-  const setInput = document.querySelector(".js-sets");
-  if (!setInput.value || (setInput.value && !isValidSets(setInput.value))) {
-    setInput.classList.add("invalid");
-    invalidInputs.push(setInput);
+  if (!setsInput.value || (setsInput.value && !isValidSets(setsInput.value))) {
+    setsInput.classList.add("invalid");
+    invalidInputs.push(setsInput);
   }
 
   invalidInputs.forEach((invalidInput) => {
@@ -49,13 +48,11 @@ function validateForm() {
   return invalidInputs.length === 0;
 }
 
-document.querySelector(".js-start-exercise").addEventListener("click", (e) => {
+quickStartButton.addEventListener("click", (e) => {
   e.preventDefault();
   if (validateForm()) {
-    const durations = gatherDurations();
-    const setsData = gatherSetsData();
-    exercises.push(...durations, setsData);
-    localStorage.setItem("currentExercise", JSON.stringify(exercises));
+    const exercise = collectIntervalData()
+    localStorage.setItem("currentExercise", JSON.stringify(exercise));
     window.open("../exercise.html", "_self");
   }
 });

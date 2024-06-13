@@ -141,8 +141,7 @@ document
     }
   });
 
-  document.querySelector(".js-close").addEventListener("click", () => {
-    stopCountdown = true;
+  document.querySelector(".js-close").addEventListener("click", () => {    
     window.open("../interval.html", "_self");
   });
 
