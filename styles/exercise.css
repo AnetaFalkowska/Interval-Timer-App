@@ -22,6 +22,12 @@
     gap: 40px;
 }  
 
+.btn-close {
+    align-self: center;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
 .card-title,
 .btn-dark {
     font-size: 30px;

@@ -1,13 +1,19 @@
 import { currentExercise } from "../data/exercises.js";
 
-const remainingTimeFlag = document.querySelector('.js-remaining-time')
+const remainingTimeFlag = document.querySelector(".js-remaining-time");
 const card = document.querySelector(".js-card");
 const phaseName = document.querySelector(".js-phase-name");
 const phaseDuration = document.querySelector(".js-phase-duration");
+const closeButton = document.querySelector(".js-close-button");
 let stopCountdown = false;
 let currentPhaseIndex = 0;
 let remainingIntervalTime = null;
 let remainingTotalTime;
+
+window.addEventListener("load", () => {
+  startCountdown();
+});
+
 
 function convertToTimeString(seconds) {
   const stringMinutes = Math.floor(seconds / 60);
@@ -20,18 +26,14 @@ function convertToTimeString(seconds) {
   return timeString;
 }
 
-// document.querySelector(".js-phase-duration").innerHTML = convertToTimeString(
-//   currentExercise[0].durationInSeconds
-// );
-
-function countDown({ id, durationInSeconds }) {
+function countDown({ id, durationInSeconds }, playAudio) {
   return new Promise((res, rej) => {
     if (stopCountdown) {
       rej("Countdown stopped");
       return;
     }
-    
-    remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime)   
+    if (playAudio) {playPhaseSound(id)}
+    remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime);
 
     const colorClasses = {
       Prepare: "prepare",
@@ -41,14 +43,13 @@ function countDown({ id, durationInSeconds }) {
     };
 
     const colorClass = colorClasses[id] || "";
-    
+
     card.className = "card js-card";
     card.classList.add(colorClass);
-    
+
     phaseName.innerHTML = id;
-    
+
     phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
-    ;
     const intervalIdentifier = setInterval(() => {
       if (stopCountdown) {
         clearInterval(intervalIdentifier);
@@ -58,7 +59,6 @@ function countDown({ id, durationInSeconds }) {
       }
       durationInSeconds--;
       remainingTotalTime--;
-      console.log(remainingTotalTime)
       if (durationInSeconds < 0) {
         clearInterval(intervalIdentifier);
         res();
@@ -70,9 +70,18 @@ function countDown({ id, durationInSeconds }) {
   });
 }
 
+function playPhaseSound(id) {  
+  let sound = new Audio("/sounds/" + id + ".mp3");
+  sound.play()
+}
+
 function createCountDownArray(exercise) {
   const array = [];
-  const countDownDurations = exercise.map(el => {return el.durationInSeconds ? {...el, durationInSeconds: el.durationInSeconds-1} : {...el}})
+  const countDownDurations = exercise.map((el) => {
+    return el.durationInSeconds
+      ? { ...el, durationInSeconds: el.durationInSeconds - 1 }
+      : { ...el };
+  });
   const numberOfSets = exercise[4].sets;
   for (let i = 0; i < numberOfSets; i++) {
     array.push(countDownDurations[1], countDownDurations[2]);
@@ -82,8 +91,10 @@ function createCountDownArray(exercise) {
 
 const phasesArray = createCountDownArray(currentExercise);
 
-const TotalExerciseTime = phasesArray.reduce((accumulator, phase) => {return accumulator + phase.durationInSeconds + 1},-1)
-console.log(remainingTotalTime)
+const TotalExerciseTime = phasesArray.reduce((accumulator, phase) => {
+  return accumulator + phase.durationInSeconds + 1;
+}, -1);
+console.log(remainingTotalTime);
 remainingTotalTime = TotalExerciseTime;
 
 function createPhasesArray(exercise) {
@@ -99,13 +110,14 @@ function startCountdown(startIndex = 0) {
   const countDownArray = phasesArray.slice(startIndex).map((el, index) => {
     const newFunction = () => {
       currentPhaseIndex = startIndex + index;
+      const isPhaseCut = remainingIntervalTime !== null && index === 0
       return countDown({
         id: el.id,
         durationInSeconds:
-          remainingIntervalTime !== null && index === 0
+          isPhaseCut
             ? remainingIntervalTime
             : el.durationInSeconds,
-      });
+      }, !isPhaseCut);
     };
     return newFunction;
   });
@@ -115,8 +127,6 @@ function startCountdown(startIndex = 0) {
     .then(() => alert("koniec"))
     .catch((error) => console.log(error));
 }
-
-startCountdown();
 
 document
   .querySelector(".js-stop-countdown")
@@ -129,6 +139,11 @@ document
       stopCountdown = true;
       this.innerHTML = "Continue";
     }
+  });
+
+  document.querySelector(".js-close").addEventListener("click", () => {
+    stopCountdown = true;
+    window.open("../interval.html", "_self");
   });
 
 // const prepareCountDown = () => {

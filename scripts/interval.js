@@ -1,6 +1,11 @@
 import { currentExercise as exercises } from "../data/exercises.js";
 import { isValidDuration, isValidSets } from "./utils/validation.js";
-import {convertToSeconds} from "./utils/time.js"
+import { convertToSeconds } from "./utils/time.js"
+
+
+window.addEventListener("load", () => {
+  localStorage.removeItem("currentExercise")
+});
 
 function gatherDurations() {
   return Array.from(document.querySelectorAll(".js-duration")).map((el) => ({
@@ -51,6 +56,6 @@ document.querySelector(".js-start-exercise").addEventListener("click", (e) => {
     const setsData = gatherSetsData();
     exercises.push(...durations, setsData);
     localStorage.setItem("currentExercise", JSON.stringify(exercises));
-    window.open("../exercise.html");
+    window.open("../exercise.html", "_self");
   }
 });
