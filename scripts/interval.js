@@ -1,9 +1,12 @@
 import { isValidDuration, isValidSets } from "./utils/validation.js";
 import { convertToSeconds } from "./utils/time.js"
+import { addToUserExercises } from "../data/exercises.js";
 
 const exercisesPhases = document.querySelectorAll(".js-duration");
 const setsInput = document.querySelector(".js-sets");
 const quickStartButton = document.querySelector(".js-quickStart-exercise")
+const saveExerciseButton = document.querySelector(".js-save-exercise")
+const exerciseName = document.querySelector(".js-exercise-name")
 
 window.addEventListener("load", () => {
   localStorage.removeItem("currentExercise")
@@ -54,5 +57,13 @@ quickStartButton.addEventListener("click", (e) => {
     const exercise = collectIntervalData()
     localStorage.setItem("currentExercise", JSON.stringify(exercise));
     window.open("../exercise.html", "_self");
+  }
+});
+
+saveExerciseButton.addEventListener("click", () => {
+  if (validateForm()) {
+    const newUserExercise = collectIntervalData()    
+    addToUserExercises(newUserExercise, exerciseName.value)
+    window.open("../userExercises.html", "_self");
   }
 });

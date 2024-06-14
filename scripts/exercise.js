@@ -1,4 +1,5 @@
 import { currentExercise } from "../data/exercises.js";
+import { convertToTimeString } from "./utils/time.js";
 
 const remainingTimeFlag = document.querySelector(".js-remaining-time");
 const card = document.querySelector(".js-card");
@@ -13,18 +14,6 @@ let remainingTotalTime;
 window.addEventListener("load", () => {
   startCountdown();
 });
-
-
-function convertToTimeString(seconds) {
-  const stringMinutes = Math.floor(seconds / 60);
-  const stringSeconds = seconds % 60;
-
-  const timeString =
-    stringMinutes.toString().padStart(2, "0") +
-    ":" +
-    stringSeconds.toString().padStart(2, "0");
-  return timeString;
-}
 
 function countDown({ id, durationInSeconds }, playAudio) {
   return new Promise((res, rej) => {
