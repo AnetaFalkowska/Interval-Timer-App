@@ -1,45 +1,71 @@
 import { userExercises, deleteExercise } from "../data/exercises.js";
 import { convertToTimeString } from "./utils/time.js";
 
-
+const exerciseListElement = document.querySelector(".js-exercise-list");
+const startDeleteExerciseButton = document.querySelector(
+  ".js-start-delete-exercise"
+);
+const startExerciseButton = document.querySelector(".js-start-exercise");
+const deleteExerciseButton = document.querySelector(".js-delete-exercise");
 
 function generateExerciseListHTML() {
-let html = "";
+  let html = "";
 
-userExercises.forEach((el) => {
-  html += `<label class="list-group-item d-flex gap-2">
+  userExercises.forEach((el, index) => {
+
+    const isChecked = index === 0;
+    html += `<label class="list-group-item d-flex gap-2">
 <input
   class="form-check-input flex-shrink-0"
   type="radio"
   name="exercises"
   id="${el.id}"
   value="${el.id}"
+  ${isChecked ? "checked" : ""}
 />
 <span>
   ${el.name}
   <small class="d-block text-body-secondary"
     >Sets: ${el.exercise[4].sets}   Work: ${convertToTimeString(
-    el.exercise[1].durationInSeconds
-  )}  Rest: ${convertToTimeString(el.exercise[2].durationInSeconds)}</small
+      el.exercise[1].durationInSeconds
+    )}  Rest: ${convertToTimeString(el.exercise[2].durationInSeconds)}</small
   >
 </span>
 
 </label>`;
-});
-return html
+  });
+  return html;
 }
 
 function renderExerciseList() {
-    const exerciseListElement = document.querySelector(".js-exercise-list")
-    exerciseListElement.innerHTML = generateExerciseListHTML()
+  exerciseListElement.innerHTML =
+    userExercises.length === 0
+      ? `<div>There are no exercises yet, <a href="../interval.html">click here</a> to add some.</div>`
+      : generateExerciseListHTML();
 }
 
-renderExerciseList()
-
-document.querySelector(".js-delete-exercise").addEventListener("click", () => {
-  const exerciseId = document.querySelector(
+function handleDeleteExercise() {
+  const selectedExercise = document.querySelector(
     'input[name="exercises"]:checked'
   ).value;
-  deleteExercise(exerciseId);
-  renderExerciseList()
-});
+  if (selectedExercise) {
+    deleteExercise(selectedExercise);
+    init();
+  }
+}
+
+function setUpButtons() {
+  if (userExercises.length === 0) {
+    startDeleteExerciseButton.disabled = true;
+    startExerciseButton.disabled = true;
+  }
+
+  deleteExerciseButton.addEventListener("click", handleDeleteExercise);
+}
+
+function init() {
+  renderExerciseList();
+  setUpButtons();
+}
+
+init();
