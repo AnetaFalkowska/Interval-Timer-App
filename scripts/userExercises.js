@@ -1,4 +1,4 @@
-import { userExercises, deleteExercise } from "../data/exercises.js";
+import { userExercises, deleteExercise, updateCurrentExercise } from "../data/exercises.js";
 import { convertToTimeString } from "./utils/time.js";
 
 const exerciseListElement = document.querySelector(".js-exercise-list");
@@ -45,22 +45,35 @@ function renderExerciseList() {
 }
 
 function handleDeleteExercise() {
-  const selectedExercise = document.querySelector(
-    'input[name="exercises"]:checked'
-  ).value;
-  if (selectedExercise) {
-    deleteExercise(selectedExercise);
+    const selectedExerciseId = document.querySelector(
+        'input[name="exercises"]:checked'
+      ).value
+  if (selectedExerciseId) {
+    deleteExercise(selectedExerciseId);
     init();
   }
 }
+
+function handleStartExercise() {
+    const selectedExerciseId = document.querySelector(
+        'input[name="exercises"]:checked'
+      ).value
+    if (selectedExerciseId) {
+        const selectedUserExercise = userExercises.find((el)=> el.id === selectedExerciseId)
+        const startedExercise = selectedUserExercise.exercise
+        updateCurrentExercise(startedExercise);
+        window.open("../exercise.html", "_self");   
+    }
+  }
 
 function setUpButtons() {
   if (userExercises.length === 0) {
     startDeleteExerciseButton.disabled = true;
     startExerciseButton.disabled = true;
+  } else {
+    deleteExerciseButton.addEventListener("click", handleDeleteExercise);
+    startExerciseButton.addEventListener("click", handleStartExercise)
   }
-
-  deleteExerciseButton.addEventListener("click", handleDeleteExercise);
 }
 
 function init() {

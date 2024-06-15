@@ -1,4 +1,4 @@
-export const currentExercise = JSON.parse(localStorage.getItem("currentExercise")) || []
+export let currentExercise = JSON.parse(localStorage.getItem("currentExercise")) || []
 export let userExercises = JSON.parse(localStorage.getItem("userExercises")) || []
 
 function saveUserExerciseToLocalStorage() {    
@@ -17,4 +17,8 @@ export function addToUserExercises(exercise, name) {
 export function deleteExercise(id) {
     userExercises = userExercises.filter(el=> el.id !== id)
     saveUserExerciseToLocalStorage()
+}
+
+export function updateCurrentExercise(exercise) {
+    localStorage.setItem("currentExercise", JSON.stringify(exercise))
 }
