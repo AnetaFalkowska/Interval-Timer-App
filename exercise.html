@@ -13,20 +13,58 @@
   </head>
   <body>
     <div class="container">
-      <div class="remaining-time">
-        <h4>Ramaining <span class="badge bg-secondary js-remaining-time">New</span></h4>
-      </div>
-      <div class="card js-card">        
-        <button type="button" class="btn-close js-close" aria-label="Close"></button>
-        <div class="card-body">          
-          <h5 class="card-title js-phase-name">Prepare</h5>
-          <p class="card-text js-phase-duration">00:00</p>
-          <button type="button" class="btn btn-dark js-stop-countdown">Stop</button>
+      <header
+        class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom"
+      >
+        <a
+          href="../interval.html"
+          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+        >
+          <i data-lucide="circle-gauge" class="me-2" width="40" height="32">
+            
+          </i>
+          <span class="fs-4">Interval Timer</span>
+        </a>
+
+        <ul class="nav nav-pills">
+
+          <li class="nav-item">
+            <a href="../userExercises.html" class="nav-link">My Exercises</a>
+          </li>
+          <li class="nav-item"><a href="../interval.html" class="nav-link active" aria-current="page"><i data-lucide="plus"></i></a></li>
+        </ul>
+      </header>
+      <div class="main">
+        <div class="mb-4 text-secondary">
+          <h4>
+            Ramaining
+            <span class="badge bg-secondary js-remaining-time">New</span>
+          </h4>
         </div>
+        
+          <div
+            class="col-md-6 position-relative p-5 text-center text-muted border border-dashed rounded-5 align-items-center js-card"
+          >
+          <button type="button" class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill js-close" aria-label="Close"></button>
+            <h1 class="text-dark-emphasis mt-5 pt-5 js-phase-name">Prepare</h1>
+            <p class="timer mx-auto pb-3 mb-4 js-phase-duration">00:00</p>
+            <button
+              class="btn btn-secondary fs-3 px-5 mb-5 js-stop-countdown"
+              type="button"
+            >
+              Stop
+            
+          </i>
+            </button>
+          </div>
       </div>
     </div>
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="scripts/exercise.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
   </body>
 </html>

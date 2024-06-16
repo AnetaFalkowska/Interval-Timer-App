@@ -19,6 +19,27 @@
   </head>
   <body>
     <div class="container">
+      <header
+        class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom"
+      >
+        <a
+          href="../interval.html"
+          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+        >
+          <i data-lucide="circle-gauge" class="me-2" width="40" height="32">
+            
+          </i>
+          <span class="fs-4">Interval Timer</span>
+        </a>
+
+        <ul class="nav nav-pills">
+
+          <li class="nav-item">
+            <a href="../userExercises.html" class="nav-link">My Exercises</a>
+          </li>
+          <li class="nav-item"><a href="../interval.html" class="nav-link active" aria-current="page"><i data-lucide="plus"></i></a></li>
+        </ul>
+      </header>
       <div
         class="modal fade"
         id="staticBackdrop"
@@ -26,122 +47,148 @@
         data-bs-keyboard="false"
         tabindex="-1"
         aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-4 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
-              <h1 class="fw-bold mb-0 fs-2">Saving exercise</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                Save as
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-      
+
             <div class="modal-body p-5 pt-0">
-              <form class="">
+              
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control rounded-3 js-exercise-name" id="fileName">
-                  <label for="fileName">Save exercise</label>
+                  <input
+                    type="email"
+                    class="form-control rounded-3 js-exercise-name"
+                    id="fileName"
+                  />
+                  <label for="fileName">Exercise name</label>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary js-save-exercise">Save</button>
-                </div>
-              </form>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary js-save-exercise"
+                  >
+                    Save
+                  </button>
+                </div>            
             </div>
+  
           </div>
         </div>
       </div>
-      <form>
-        <div class="mb-3 form-item">
-          <label for="prepare" class="form-label"
-            ><i data-lucide="loader-circle" class="icon"></i>Prepare</label
-          >
-          <input
-            type="text"
-            placeholder="mm:ss"
-            class="form-control js-duration"
-            id="prepare"
-            data-id="Prepare"
-            required
-          />
-          <div class="feedback feedback-Prepare">
-            Please enter time in mm:ss format!
+      <div class="main">
+        <form class="col-md-6 col-lg-4">
+          <div class="custom-card text-center fw-bold">
+            <label for="prepare" class="form-label"
+              ><i data-lucide="loader-circle" class="icon"></i>Prepare</label
+            >
+            <input
+              type="text"
+              placeholder="mm:ss"
+              class="form-control js-duration"
+              id="prepare"
+              data-id="Prepare"
+              required
+            />
+            <div class="feedback feedback-Prepare">
+              Please enter time in mm:ss format!
+            </div>
           </div>
-        </div>
-        <div class="mb-3 form-item">
-          <label for="work" class="form-label"
-            ><i data-lucide="biceps-flexed" class="icon"></i>Work</label
-          >
-          <input
-            type="text"
-            placeholder="mm:ss"
-            class="form-control js-duration"
-            id="work"
-            data-id="Work"
-          />
-          <div class="feedback feedback-Work">
-            Please enter time in mm:ss format!
+          <div class="custom-card text-center fw-bold">
+            <label for="work" class="form-label"
+              ><i data-lucide="biceps-flexed" class="icon"></i>Work</label
+            >
+            <input
+              type="text"
+              placeholder="mm:ss"
+              class="form-control js-duration"
+              id="work"
+              data-id="Work"
+            />
+            <div class="feedback feedback-Work">
+              Please enter time in mm:ss format!
+            </div>
           </div>
-        </div>
-        <div class="mb-3 form-item">
-          <label for="rest" class="form-label"
-            ><i data-lucide="circle-ellipsis" class="icon"></i>Rest</label
-          >
-          <input
-            type="text"
-            placeholder="mm:ss"
-            class="form-control js-duration"
-            id="rest"
-            data-id="Rest"
-          />
-          <div class="feedback feedback-Rest">
-            Please enter time in mm:ss format!
+          <div class="custom-card text-center fw-bold">
+            <label for="rest" class="form-label"
+              ><i data-lucide="circle-ellipsis" class="icon"></i>Rest</label
+            >
+            <input
+              type="text"
+              placeholder="mm:ss"
+              class="form-control js-duration"
+              id="rest"
+              data-id="Rest"
+            />
+            <div class="feedback feedback-Rest">
+              Please enter time in mm:ss format!
+            </div>
           </div>
-        </div>
-        <div class="mb-3 form-item">
-          <label for="coolDown" class="form-label"
-            ><i data-lucide="fan" class="icon"></i>Cool Down</label
-          >
-          <input
-            type="text"
-            placeholder="mm:ss"
-            class="form-control js-duration"
-            id="coolDown"
-            data-id="CoolDown"
-          />
-          <div class="feedback feedback-CoolDown">
-            Please enter time in mm:ss format!
+          <div class="custom-card text-center fw-bold">
+            <label for="coolDown" class="form-label"
+              ><i data-lucide="fan" class="icon"></i>Cool Down</label
+            >
+            <input
+              type="text"
+              placeholder="mm:ss"
+              class="form-control js-duration"
+              id="coolDown"
+              data-id="CoolDown"
+            />
+            <div class="feedback feedback-CoolDown">
+              Please enter time in mm:ss format!
+            </div>
           </div>
-        </div>
-        <div class="mb-3 form-item">
-          <label for="sets" class="form-label"
-            ><i data-lucide="chevrons-right" class="icon"></i>Sets</label
-          >
-          <input
-            type="number"
-            placeholder="0"
-            class="form-control js-sets"
-            id="sets"
-            data-id="sets"
-          />
-          <div class="feedback feedback-sets">
-            Plese enter an integer greater than 0!
+          <div class="custom-card text-center fw-bold">
+            <label for="sets" class="form-label"
+              ><i data-lucide="chevrons-right" class="icon"></i>Sets</label
+            >
+            <input
+              type="number"
+              placeholder="0"
+              class="form-control js-sets"
+              id="sets"
+              data-id="sets"
+            />
+            <div class="feedback feedback-sets">
+              Plese enter an integer greater than 0!
+            </div>
           </div>
-        </div>
-        <div class="buttons-container">
-          <button
-            type="button"
-            class="btn btn-warning"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-          >
-            Save to Preset
-          </button>
-          <button
-            class="btn btn-primary start-button js-quickStart-exercise"
-            type="submit"
-          >
-            Quick Start
-          </button>
-        </div>
-      </form>
+          <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-between">
+            <button
+              type="button"
+              class="btn btn-warning fs-4"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            >
+              Save to Preset
+            </button>
+            <button
+              class="btn btn-primary fs-4 js-quickStart-exercise"
+              type="submit"
+            >
+              Quick Start
+            </button>
+          </div>
+        </form>
+      </div>      
     </div>
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

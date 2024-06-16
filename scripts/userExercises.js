@@ -1,4 +1,8 @@
-import { userExercises, deleteExercise, updateCurrentExercise } from "../data/exercises.js";
+import {
+  userExercises,
+  deleteExercise,
+  updateCurrentExercise,
+} from "../data/exercises.js";
 import { convertToTimeString } from "./utils/time.js";
 
 const exerciseListElement = document.querySelector(".js-exercise-list");
@@ -12,27 +16,32 @@ function generateExerciseListHTML() {
   let html = "";
 
   userExercises.forEach((el, index) => {
-
     const isChecked = index === 0;
-    html += `<label class="list-group-item d-flex gap-2">
+    html += `
+ 
 <input
-  class="form-check-input flex-shrink-0"
-  type="radio"
-  name="exercises"
+          class="list-group-item-check pe-none"
+          type="radio"
+          name="exercises"
   id="${el.id}"
   value="${el.id}"
   ${isChecked ? "checked" : ""}
-/>
-<span>
-  ${el.name}
-  <small class="d-block text-body-secondary"
-    >Sets: ${el.exercise[4].sets}   Work: ${convertToTimeString(
+        />
+        <label
+          class="list-group-item rounded-3 py-3 custom-card"
+          for="${el.id}"
+        >
+        ${el.name}
+          <span class="d-block small opacity-50"
+            >Sets: ${el.exercise[4].sets}   Work: ${convertToTimeString(
       el.exercise[1].durationInSeconds
-    )}  Rest: ${convertToTimeString(el.exercise[2].durationInSeconds)}</small
-  >
-</span>
+    )}  Rest: ${convertToTimeString(el.exercise[2].durationInSeconds)}</span
+          >
+        </label>
 
-</label>`;
+
+
+`;
   });
   return html;
 }
@@ -45,9 +54,9 @@ function renderExerciseList() {
 }
 
 function handleDeleteExercise() {
-    const selectedExerciseId = document.querySelector(
-        'input[name="exercises"]:checked'
-      ).value
+  const selectedExerciseId = document.querySelector(
+    'input[name="exercises"]:checked'
+  ).value;
   if (selectedExerciseId) {
     deleteExercise(selectedExerciseId);
     init();
@@ -55,16 +64,18 @@ function handleDeleteExercise() {
 }
 
 function handleStartExercise() {
-    const selectedExerciseId = document.querySelector(
-        'input[name="exercises"]:checked'
-      ).value
-    if (selectedExerciseId) {
-        const selectedUserExercise = userExercises.find((el)=> el.id === selectedExerciseId)
-        const startedExercise = selectedUserExercise.exercise
-        updateCurrentExercise(startedExercise);
-        window.open("../exercise.html", "_self");   
-    }
+  const selectedExerciseId = document.querySelector(
+    'input[name="exercises"]:checked'
+  ).value;
+  if (selectedExerciseId) {
+    const selectedUserExercise = userExercises.find(
+      (el) => el.id === selectedExerciseId
+    );
+    const startedExercise = selectedUserExercise.exercise;
+    updateCurrentExercise(startedExercise);
+    window.open("../exercise.html", "_self");
   }
+}
 
 function setUpButtons() {
   if (userExercises.length === 0) {
@@ -72,7 +83,7 @@ function setUpButtons() {
     startExerciseButton.disabled = true;
   } else {
     deleteExerciseButton.addEventListener("click", handleDeleteExercise);
-    startExerciseButton.addEventListener("click", handleStartExercise)
+    startExerciseButton.addEventListener("click", handleStartExercise);
   }
 }
 

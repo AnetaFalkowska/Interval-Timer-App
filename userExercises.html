@@ -15,9 +15,31 @@
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="styles/general.css" />
+    <link rel="stylesheet" href="styles/userExercises.css" />
   </head>
   <body>
     <div class="container">
+      <header
+        class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom"
+      >
+        <a
+          href="../interval.html"
+          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+        >
+          <i data-lucide="circle-gauge" class="me-2" width="40" height="32">
+            
+          </i>
+          <span class="fs-4">Interval Timer</span>
+        </a>
+
+        <ul class="nav nav-pills">
+
+          <li class="nav-item">
+            <a href="../userExercises.html" class="nav-link">My Exercises</a>
+          </li>
+          <li class="nav-item"><a href="../interval.html" class="nav-link active" aria-current="page"><i data-lucide="plus"></i></a></li>
+        </ul>
+      </header>
       <div
         class="modal fade"
         id="staticBackdrop"
@@ -27,9 +49,9 @@
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
               <h1 class="modal-title fs-5" id="staticBackdropLabel">
                 Are you sure?
               </h1>
@@ -40,48 +62,56 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
-              Do you really want to remove this exercise?
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                No
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary js-delete-exercise"
-                data-bs-dismiss="modal"
-              >
-                Yes
-              </button>
+            <div class="modal-body p-5 pt-0">
+              <p>Do you really want to remove this exercise?</p>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  No
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary js-delete-exercise"
+                  data-bs-dismiss="modal"
+                >
+                  Yes
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center"
-      >
-        <div class="list-group js-exercise-list">Loading...</div>
-      </div>
-      <div class="buttons-container">
-        <button
-          type="button"
-          class="btn btn-warning js-start-delete-exercise"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
+      <div class="main">
+        <div
+          class="col-md-6 col-lg-4 d-flex flex-column p-4 py-md-5 align-items-center justify-content-center"
         >
-          Delete
-        </button>
-        <button
-          class="btn btn-primary start-button js-start-exercise"
-          type="submit"
-        >
-          Start
-        </button>
+          <div
+            class="list-group list-group-checkable d-grid border-0 js-exercise-list"
+          >
+            <p>Loading...</p>
+          </div>
+          <div
+            class="d-grid gap-2 d-md-flex mt-4 justify-content-md-between align-self-stretch"
+          >
+            <button
+              type="button"
+              class="btn btn-secondary fs-4 js-start-delete-exercise"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            >
+              Delete
+            </button>
+            <button
+              class="btn btn-primary fs-4 start-button js-start-exercise"
+              type="submit"
+            >
+              Start
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 

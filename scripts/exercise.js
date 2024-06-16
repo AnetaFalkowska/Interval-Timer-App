@@ -33,7 +33,7 @@ function countDown({ id, durationInSeconds }, playAudio) {
 
     const colorClass = colorClasses[id] || "";
 
-    card.className = "card js-card";
+    card.className = "col-md-6 position-relative p-5 text-center text-muted border border-dashed rounded-5 align-items-center js-card";
     card.classList.add(colorClass);
 
     phaseName.innerHTML = id;
@@ -122,11 +122,11 @@ document
   .addEventListener("click", function () {
     if (stopCountdown) {
       stopCountdown = false;
-      this.innerHTML = "Stop";
+      this.innerHTML = 'Stop';
       startCountdown(currentPhaseIndex);
     } else {
       stopCountdown = true;
-      this.innerHTML = "Continue";
+      this.innerHTML = 'Continue'
     }
   });
 
