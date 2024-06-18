@@ -2,8 +2,11 @@ import {
   userExercises,
   deleteExercise,
   updateCurrentExercise,
+  saveEditedExerciseIDToLocalStorage,
+  selectedExerciseIndex
 } from "../data/exercises.js";
 import { convertToTimeString } from "./utils/time.js";
+
 
 const exerciseListElement = document.querySelector(".js-exercise-list");
 const startDeleteExerciseButton = document.querySelector(
@@ -11,13 +14,17 @@ const startDeleteExerciseButton = document.querySelector(
 );
 const startExerciseButton = document.querySelector(".js-start-exercise");
 const deleteExerciseButton = document.querySelector(".js-delete-exercise");
+const editExerciseButton = document.querySelector(".js-edit-exercise");
+
+window.addEventListener("beforeunload", ()=>{localStorage.removeItem("selectedExerciseIndex")});
 
 function generateExerciseListHTML() {
   let html = "";
 
   userExercises.forEach((el, index) => {
-    const isChecked = index === 0;
-    html += `
+    console.log(selectedExerciseIndex)
+    const isChecked = index === (selectedExerciseIndex || 0)
+  html += `
  
 <input
           class="list-group-item-check pe-none"
@@ -59,7 +66,17 @@ function handleDeleteExercise() {
   ).value;
   if (selectedExerciseId) {
     deleteExercise(selectedExerciseId);
-    init();
+    init()
+  }
+}
+
+function handleEditExercise() {
+  const selectedExerciseId = document.querySelector(
+    'input[name="exercises"]:checked'
+  ).value;
+  if (selectedExerciseId) {
+    saveEditedExerciseIDToLocalStorage(selectedExerciseId)
+    window.open("../interval.html", "_self")    
   }
 }
 
@@ -84,11 +101,12 @@ function setUpButtons() {
   } else {
     deleteExerciseButton.addEventListener("click", handleDeleteExercise);
     startExerciseButton.addEventListener("click", handleStartExercise);
+    editExerciseButton.addEventListener("click", handleEditExercise);
   }
 }
 
 function init() {
-  renderExerciseList();
+  renderExerciseList();  
   setUpButtons();
 }
 

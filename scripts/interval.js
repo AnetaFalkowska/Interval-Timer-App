@@ -1,25 +1,39 @@
 import { isValidDuration, isValidSets } from "./utils/validation.js";
-import { convertToSeconds } from "./utils/time.js"
-import { addToUserExercises } from "../data/exercises.js";
+import { convertToSeconds, convertToTimeString } from "./utils/time.js";
+import {
+  addToUserExercises,
+  editedExerciseId,
+  getExerciseById,
+  updateUserExercises,
+} from "../data/exercises.js";
 
 const exercisesPhases = document.querySelectorAll(".js-duration");
 const setsInput = document.querySelector(".js-sets");
-const quickStartButton = document.querySelector(".js-quickStart-exercise")
-const saveExerciseButton = document.querySelector(".js-save-exercise")
-const exerciseName = document.querySelector(".js-exercise-name")
+const quickStartButton = document.querySelector(".js-quickStart-exercise");
+const saveExerciseButton = document.querySelector(".js-save-exercise");
+const exerciseName = document.querySelector(".js-exercise-name");
 
 window.addEventListener("load", () => {
-  localStorage.removeItem("currentExercise")
+  localStorage.removeItem("currentExercise");
+  if (editedExerciseId) {
+    const editedExercise = getExerciseById(editedExerciseId);
+    setupIsEditingUI(editedExerciseId, editedExercise);
+    populateFormWithExerciseData(editedExercise);
+  }
 });
+window.addEventListener("beforeunload", ()=>{localStorage.removeItem("editedExerciseId")});
 
 function collectIntervalData() {
   const phasesArray = Array.from(exercisesPhases).map((el) => ({
-      id: el.dataset.id,
-      durationInSeconds: convertToSeconds(el.value),
-    }))
+    id: el.dataset.id,
+    durationInSeconds: convertToSeconds(el.value),
+  }));
 
-    const setsData = { id: setsInput.dataset.id, sets: parseInt(setsInput.value) }
-    return [...phasesArray, setsData]
+  const setsData = {
+    id: setsInput.dataset.id,
+    sets: parseInt(setsInput.value),
+  };
+  return [...phasesArray, setsData];
 }
 
 function validateForm() {
@@ -54,7 +68,7 @@ function validateForm() {
 quickStartButton.addEventListener("click", (e) => {
   e.preventDefault();
   if (validateForm()) {
-    const exercise = collectIntervalData()
+    const exercise = collectIntervalData();
     localStorage.setItem("currentExercise", JSON.stringify(exercise));
     window.open("../exercise.html", "_self");
   }
@@ -62,8 +76,43 @@ quickStartButton.addEventListener("click", (e) => {
 
 saveExerciseButton.addEventListener("click", () => {
   if (validateForm()) {
-    const newUserExercise = collectIntervalData()    
-    addToUserExercises(newUserExercise, exerciseName.value)
+    const newUserExercise = collectIntervalData();
+    addToUserExercises(newUserExercise, exerciseName.value);
     window.open("../userExercises.html", "_self");
   }
 });
+
+function populateFormWithExerciseData(editedExercise) {
+  const exerciseData = editedExercise.exercise;
+  console.log(exerciseData);
+  exerciseData.map((phase) => {
+    const input = document.querySelector(`.js-duration[data-id="${phase.id}"`);
+    if (input) {
+      input.value = convertToTimeString(phase.durationInSeconds);
+    }
+  });
+  setsInput.value = exerciseData[4].sets;
+}
+
+function setupIsEditingUI(id, editedExercise) {
+  const exerciseName = document.querySelector(".js-edited-name")
+  exerciseName.classList.remove("d-none")
+  exerciseName.innerHTML= editedExercise.name
+  const actionsElement = document.querySelector(".js-actions")
+  actionsElement.classList.remove('d-grid', 'd-md-flex', 'justify-content-md-between');
+  actionsElement.classList.add('d-flex', 'justify-content-center'),
+  actionsElement.innerHTML = `<button
+              class="btn btn-warning fs-4 js-edit-exercise"
+              type="submit"
+            >
+              Save changes
+            </button>`;
+  document.querySelector(".js-edit-exercise").addEventListener("click", (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      const exercise = collectIntervalData();
+      updateUserExercises(exercise, id);
+      window.open("../userExercises.html", "_self");
+    }
+  });
+}
