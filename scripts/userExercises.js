@@ -7,6 +7,7 @@ import {
 } from "../data/exercises.js";
 import { convertToTimeString } from "./utils/time.js";
 
+let preselecetedExercise = selectedExerciseIndex
 
 const exerciseListElement = document.querySelector(".js-exercise-list");
 const startDeleteExerciseButton = document.querySelector(
@@ -21,9 +22,8 @@ window.addEventListener("beforeunload", ()=>{localStorage.removeItem("selectedEx
 function generateExerciseListHTML() {
   let html = "";
 
-  userExercises.forEach((el, index) => {
-    console.log(selectedExerciseIndex)
-    const isChecked = index === (selectedExerciseIndex || 0)
+  userExercises.reverse().forEach((el, index) => {
+    const isChecked = index === (preselecetedExercise || 0)
   html += `
  
 <input
@@ -66,6 +66,7 @@ function handleDeleteExercise() {
   ).value;
   if (selectedExerciseId) {
     deleteExercise(selectedExerciseId);
+    preselecetedExercise = 0;
     init()
   }
 }
