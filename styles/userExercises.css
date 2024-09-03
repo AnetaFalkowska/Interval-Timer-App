@@ -11,8 +11,8 @@
 
 .list-group-item-check:checked + .list-group-item {
   color: #fff;
-  background-color: #1ca865;
-  border-color: #1ca865;
+  background-color: #01ac5b;
+  border-color: #01ac5b;
   /* background-color: var(--bs-primary);
   border-color: var(--bs-primary); */
 }

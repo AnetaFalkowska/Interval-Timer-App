@@ -8,32 +8,42 @@
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="styles/custom.css">
     <link rel="stylesheet" href="styles/general.css" />
     <link rel="stylesheet" href="styles/exercise.css" />
   </head>
   <body>
     <div class="container">
       <header
-        class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom"
+      class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom border-dark-subtle"
+    >
+      <a
+        href="../interval.html"
+        class="fw-bold d-flex align-items-center me-md-auto link-body-emphasis text-decoration-none"
       >
-        <a
-          href="../interval.html"
-          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-        >
-          <i data-lucide="circle-gauge" class="me-2" width="40" height="32">
-            
-          </i>
-          <span class="fs-4">Interval Timer</span>
-        </a>
+        <i data-lucide="circle-gauge" class="me-2" width="40" height="32">
+        </i>
+        <span class="fs-4">Interval Timer</span>
+      </a>
 
-        <ul class="nav nav-pills">
-
-          <li class="nav-item">
-            <a href="../userExercises.html" class="nav-link">My Exercises</a>
-          </li>
-          <li class="nav-item"><a href="../interval.html" class="nav-link active" aria-current="page"><i data-lucide="plus"></i></a></li>
-        </ul>
-      </header>
+      <ul class="nav nav-pills align-items-center">
+        <li class="nav-item">
+          <a
+            href="../userExercises.html"
+            class="nav-link text-secondary fs-5 fw-medium"
+            >My Exercises</a
+          >
+        </li>
+        <li class="nav-item ">
+          <a
+            href="../interval.html"
+            class="nav-link bg-secondary text-white my-auto"
+            aria-current="page"
+            ><i data-lucide="plus"></i
+          ></a>
+        </li>
+      </ul>
+    </header>
       <div class="main">
         <div class="mb-4 text-secondary">
           <h4>
@@ -49,7 +59,7 @@
             <h1 class="text-dark-emphasis mt-5 pt-5 js-phase-name">Prepare</h1>
             <p class="timer mx-auto pb-3 mb-4 js-phase-duration">00:00</p>
             <button
-              class="btn btn-secondary fs-3 px-5 mb-5 js-stop-countdown"
+              class="btn btn-primary fs-3 px-5 mb-5 js-stop-countdown"
               type="button"
             >
               Stop

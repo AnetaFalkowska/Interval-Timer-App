@@ -14,30 +14,40 @@
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="styles/custom.css" />
     <link rel="stylesheet" href="styles/general.css" />
     <link rel="stylesheet" href="styles/interval.css" />
   </head>
   <body>
     <div class="container">
       <header
-        class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom"
+        class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom border-dark-subtle"
       >
         <a
           href="../interval.html"
-          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+          class="fw-bold d-flex align-items-center me-md-auto link-body-emphasis text-decoration-none"
         >
           <i data-lucide="circle-gauge" class="me-2" width="40" height="32">
-            
           </i>
           <span class="fs-4">Interval Timer</span>
         </a>
 
-        <ul class="nav nav-pills">
-
+        <ul class="nav nav-pills align-items-center">
           <li class="nav-item">
-            <a href="../userExercises.html" class="nav-link">My Exercises</a>
+            <a
+              href="../userExercises.html"
+              class="nav-link text-secondary fs-5 fw-medium"
+              >My Exercises</a
+            >
           </li>
-          <li class="nav-item"><a href="../interval.html" class="nav-link active" aria-current="page"><i data-lucide="plus"></i></a></li>
+          <li class="nav-item ">
+            <a
+              href="../interval.html"
+              class="nav-link bg-secondary text-white my-auto"
+              aria-current="page"
+              ><i data-lucide="plus"></i
+            ></a>
+          </li>
         </ul>
       </header>
       <div
@@ -52,9 +62,7 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-4 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                Save as
-              </h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Save as</h1>
               <button
                 type="button"
                 class="btn-close"
@@ -64,37 +72,34 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-              
-                <div class="form-floating mb-3">
-                  <input
-                    type="email"
-                    class="form-control rounded-3 js-exercise-name"
-                    id="fileName"
-                  />
-                  <label for="fileName">Exercise name</label>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary js-save-exercise"
-                  >
-                    Save
-                  </button>
-                </div>            
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control rounded-3 js-exercise-name"
+                  id="fileName"
+                />
+                <label for="fileName">Exercise name</label>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-secondary js-save-exercise">
+                  Save
+                </button>
+              </div>
             </div>
-  
           </div>
         </div>
       </div>
       <div class="main">
-        <h1 class="d-none fw-normal text-body-emphasis js-edited-name mb-5"></h1>
+        <h1
+          class="d-none fw-normal text-body-emphasis js-edited-name mb-5"
+        ></h1>
         <form class="col-md-6 col-lg-4 js-form">
           <div class="custom-card text-center fw-bold">
             <label for="prepare" class="form-label"
@@ -108,10 +113,9 @@
               data-id="Prepare"
               required
             />
-            <div class="feedback feedback-Prepare">
-              Please enter time in mm:ss format!
-            </div>
+
           </div>
+
           <div class="custom-card text-center fw-bold">
             <label for="work" class="form-label"
               ><i data-lucide="biceps-flexed" class="icon"></i>Work</label
@@ -172,24 +176,26 @@
               Plese enter an integer greater than 0!
             </div>
           </div>
-          <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-between js-actions">
+          <div
+            class="d-grid gap-2 d-md-flex mt-5 justify-content-md-between js-actions"
+          >
             <button
               type="button"
-              class="btn btn-warning fs-4"
+              class="btn btn-info fs-4 shadow"
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
             >
               Save to Preset
             </button>
             <button
-              class="btn btn-primary fs-4 js-quickStart-exercise"
+              class="btn btn-secondary fs-4 js-quickStart-exercise shadow"
               type="submit"
             >
               Quick Start
             </button>
           </div>
         </form>
-      </div>      
+      </div>
     </div>
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

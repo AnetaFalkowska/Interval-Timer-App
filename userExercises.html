@@ -14,30 +14,40 @@
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="styles/custom.css">
     <link rel="stylesheet" href="styles/general.css" />
     <link rel="stylesheet" href="styles/userExercises.css" />
   </head>
   <body>
     <div class="container">
       <header
-        class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom"
+        class="d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom border-dark-subtle"
       >
         <a
           href="../interval.html"
-          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+          class="fw-bold d-flex align-items-center me-md-auto link-body-emphasis text-decoration-none"
         >
           <i data-lucide="circle-gauge" class="me-2" width="40" height="32">
-            
           </i>
           <span class="fs-4">Interval Timer</span>
         </a>
 
-        <ul class="nav nav-pills">
-
+        <ul class="nav nav-pills align-items-center">
           <li class="nav-item">
-            <a href="../userExercises.html" class="nav-link">My Exercises</a>
+            <a
+              href="../userExercises.html"
+              class="nav-link text-secondary fs-5 fw-medium"
+              >My Exercises</a
+            >
           </li>
-          <li class="nav-item"><a href="../interval.html" class="nav-link active" aria-current="page"><i data-lucide="plus"></i></a></li>
+          <li class="nav-item ">
+            <a
+              href="../interval.html"
+              class="nav-link bg-secondary text-white my-auto"
+              aria-current="page"
+              ><i data-lucide="plus"></i
+            ></a>
+          </li>
         </ul>
       </header>
       <div
@@ -67,14 +77,14 @@
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="btn btn-warning"
                   data-bs-dismiss="modal"
                 >
                   No
                 </button>
                 <button
                   type="button"
-                  class="btn btn-primary js-delete-exercise"
+                  class="btn btn-secondary js-delete-exercise"
                   data-bs-dismiss="modal"
                 >
                   Yes
@@ -99,7 +109,7 @@
           <div>
             <button
               type="button"
-              class="btn btn-secondary fs-4 js-start-delete-exercise"
+              class="btn btn-danger fs-4 js-start-delete-exercise"
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
             >
@@ -111,7 +121,7 @@
             </button>
           </div>
             <button
-              class="btn btn-primary fs-4 start-button js-start-exercise"
+              class="btn btn-secondary fs-4 start-button js-start-exercise"
               type="submit"
             >
               Start

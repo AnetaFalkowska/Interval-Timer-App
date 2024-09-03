@@ -14,7 +14,6 @@ const saveExerciseButton = document.querySelector(".js-save-exercise");
 const exerciseName = document.querySelector(".js-exercise-name");
 
 window.addEventListener("load", () => {
-  localStorage.removeItem("currentExercise");
   if (editedExerciseId) {
     const editedExercise = getExerciseById(editedExerciseId);
     setupIsEditingUI(editedExerciseId, editedExercise);
