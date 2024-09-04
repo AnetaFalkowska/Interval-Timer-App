@@ -1,3 +1,4 @@
+lucide.createIcons();
 import { currentExercise } from "../data/exercises.js";
 import { convertToTimeString } from "./utils/time.js";
 
@@ -5,11 +6,13 @@ const remainingTimeFlag = document.querySelector(".js-remaining-time");
 const card = document.querySelector(".js-card");
 const phaseName = document.querySelector(".js-phase-name");
 const phaseDuration = document.querySelector(".js-phase-duration");
-const closeButton = document.querySelector(".js-close-button");
+const restartButton = document.querySelector(".js-restart-countdown");
+const stopButton = document.querySelector(".js-stop-countdown");
 let stopCountdown = false;
 let currentPhaseIndex = 0;
 let remainingIntervalTime = null;
 let remainingTotalTime;
+let isMuted = false;
 
 window.addEventListener("load", () => {
   setTimeout(() => {
@@ -17,33 +20,37 @@ window.addEventListener("load", () => {
   }, 500);
 });
 
+const colorClasses = {
+  Prepare: "prepare",
+  Work: "work",
+  Rest: "rest",
+  CoolDown: "cool-down",
+};
+
 function countDown({ id, durationInSeconds }, playAudio) {
   return new Promise((res, rej) => {
     if (stopCountdown) {
       rej("Countdown stopped");
       return;
     }
-    if (playAudio && (id === "CoolDown" || id === "Prepare")) {
+    if (!isMuted && playAudio && (id === "CoolDown" || id === "Prepare")) {
       playPhaseSound(id);
     }
-    remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime);
 
-    const colorClasses = {
-      Prepare: "prepare",
-      Work: "work",
-      Rest: "rest",
-      CoolDown: "cool-down",
-    };
+
+    remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime);
 
     const colorClass = colorClasses[id] || "";
 
     card.className =
-      "col-md-6 position-relative p-5 text-center text-muted border border-dashed rounded-5 align-items-center js-card";
+      "col-md-6 position-relative p-5 text-center text-muted border border-solid rounded-5 align-items-center js-card";
     card.classList.add(colorClass);
 
     phaseName.innerHTML = id;
 
     phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
+
+
     const intervalIdentifier = setInterval(() => {
       if (stopCountdown) {
         clearInterval(intervalIdentifier);
@@ -58,10 +65,15 @@ function countDown({ id, durationInSeconds }, playAudio) {
         clearInterval(intervalIdentifier);
         res();
       } else {
-        if (id !== "CoolDown" && durationInSeconds === 0) {
+        if (!isMuted && id !== "CoolDown" && durationInSeconds === 0) {
           playPhaseSound("Beep2");
         }
-        if (id !== "CoolDown" && durationInSeconds <= 3 && durationInSeconds > 0) {
+        if (
+          !isMuted &&
+          id !== "CoolDown" &&
+          durationInSeconds <= 3 &&
+          durationInSeconds > 0
+        ) {
           playPhaseSound("Beep1");
         }
         phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
@@ -92,19 +104,22 @@ function createCountDownArray(exercise) {
 
 const phasesArray = createCountDownArray(currentExercise);
 
-const TotalExerciseTime = phasesArray.reduce((accumulator, phase) => {
-  return accumulator + phase.durationInSeconds + 1;
-}, -1);
-remainingTotalTime = TotalExerciseTime;
-
-function createPhasesArray(exercise) {
-  const array = [];
-  const numberOfSets = exercise[4].sets;
-  for (let i = 0; i < numberOfSets; i++) {
-    array.push(exercise[1], exercise[2]);
-  }
-  return [exercise[0], ...array, exercise[3]];
+function calculateTotalExerciseTime() {
+  return phasesArray.reduce((accumulator, phase) => {
+    return accumulator + phase.durationInSeconds + 1;
+  }, -1);
 }
+
+remainingTotalTime = calculateTotalExerciseTime();
+
+// function createPhasesArray(exercise) {
+//   const array = [];
+//   const numberOfSets = exercise[4].sets;
+//   for (let i = 0; i < numberOfSets; i++) {
+//     array.push(exercise[1], exercise[2]);
+//   }
+//   return [exercise[0], ...array, exercise[3]];
+// }
 
 function startCountdown(startIndex = 0) {
   const countDownArray = phasesArray.slice(startIndex).map((el, index) => {
@@ -126,25 +141,44 @@ function startCountdown(startIndex = 0) {
 
   countDownArray
     .reduce((chain, countDownFn) => chain.then(countDownFn), Promise.resolve())
-    .then(() => alert("koniec"))
+    .then(() => {
+      stopButton.classList.add("d-none");
+    })
     .catch((error) => console.log(error));
 }
 
-document
-  .querySelector(".js-stop-countdown")
-  .addEventListener("click", function () {
-    if (stopCountdown) {
+stopButton.addEventListener("click", function () {
+  if (stopCountdown) {
+    stopCountdown = false;
+    this.innerHTML = "Stop";
+    startCountdown(currentPhaseIndex);
+  } else {
+    stopCountdown = true;
+    this.innerHTML = "Continue";
+  }
+});
+
+restartButton.addEventListener("click", () => {
+    stopCountdown = true;  
+    setTimeout(() => {
+      stopButton.innerHTML = "Stop";
       stopCountdown = false;
-      this.innerHTML = "Stop";
-      startCountdown(currentPhaseIndex);
-    } else {
-      stopCountdown = true;
-      this.innerHTML = "Continue";
-    }
+      currentPhaseIndex = 0;
+      remainingIntervalTime = null;
+      remainingTotalTime = calculateTotalExerciseTime();
+      stopButton.classList.remove("d-none");
+      startCountdown();
+    }, 1000);
   });
 
 document.querySelector(".js-close").addEventListener("click", () => {
   window.open("../interval.html", "_self");
+});
+
+document.querySelector(".js-mute").addEventListener("click", function () {
+  isMuted = !isMuted;
+  this.innerHTML = `<i data-lucide="volume-${isMuted ? "x" : "2"}"></i>`;
+  lucide.createIcons();
 });
 
 // const prepareCountDown = () => {

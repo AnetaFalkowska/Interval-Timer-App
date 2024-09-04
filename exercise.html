@@ -45,16 +45,17 @@
       </ul>
     </header>
       <div class="main">
-        <div class="mb-4 text-secondary">
+        <div class="mb-4 text-body-emphasis">
           <h4>
-            Ramaining
-            <span class="badge bg-secondary js-remaining-time">New</span>
+            Remaining Time
+            <span class="badge bg-danger js-remaining-time">New</span>
           </h4>
         </div>
         
           <div
-            class="col-md-6 position-relative p-5 text-center text-muted border border-dashed rounded-5 align-items-center js-card"
+            class="col-md-6 position-relative p-5 text-center text-muted border border-solid rounded-5 align-items-center js-card"
           >
+          <button type="button" class="position-absolute top-0 start-0 p-3 m-3 bg-secondary bg-opacity-10 rounded-pill js-mute" aria-label="Mute"><i data-lucide="volume-2"></i></button>
           <button type="button" class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill js-close" aria-label="Close"></button>
             <h1 class="text-dark-emphasis mt-5 pt-5 js-phase-name">Prepare</h1>
             <p class="timer mx-auto pb-3 mb-4 js-phase-duration">00:00</p>
@@ -90,8 +91,6 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="scripts/exercise.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
+
   </body>
 </html>
