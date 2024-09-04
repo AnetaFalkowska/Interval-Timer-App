@@ -37,19 +37,8 @@ function countDown({ id, durationInSeconds }, playAudio) {
       playPhaseSound(id);
     }
 
-
-    remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime);
-
-    const colorClass = colorClasses[id] || "";
-
-    card.className =
-      "col-md-6 position-relative p-5 text-center text-muted border border-solid rounded-5 align-items-center js-card";
-    card.classList.add(colorClass);
-
-    phaseName.innerHTML = id;
-
-    phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
-
+updateDisplay(id, durationInSeconds)
+    
 
     const intervalIdentifier = setInterval(() => {
       if (stopCountdown) {
@@ -86,6 +75,16 @@ function countDown({ id, durationInSeconds }, playAudio) {
 function playPhaseSound(id) {
   let sound = new Audio("/sounds/" + id + ".mp3");
   sound.play();
+}
+
+function updateDisplay(id, durationInSeconds) {
+  const colorClass = colorClasses[id] || "";
+  card.className =
+    "shadow-lg col-md-6 position-relative p-5 text-center text-muted rounded-5 align-items-center js-card " + colorClass;
+  phaseName.innerHTML = id;
+  remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime);
+  phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
+
 }
 
 function createCountDownArray(exercise) {
@@ -142,7 +141,7 @@ function startCountdown(startIndex = 0) {
   countDownArray
     .reduce((chain, countDownFn) => chain.then(countDownFn), Promise.resolve())
     .then(() => {
-      stopButton.classList.add("d-none");
+      stopButton.classList.add("invisible");
     })
     .catch((error) => console.log(error));
 }
@@ -158,6 +157,20 @@ stopButton.addEventListener("click", function () {
   }
 });
 
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    event.preventDefault();
+    if (stopCountdown) {
+      stopCountdown = false;
+      stopButton.innerHTML = "Stop";
+      startCountdown(currentPhaseIndex);
+    } else {
+      stopCountdown = true;
+      stopButton.innerHTML = "Continue";
+    }
+  }
+});
+
 restartButton.addEventListener("click", () => {
     stopCountdown = true;  
     setTimeout(() => {
@@ -166,7 +179,7 @@ restartButton.addEventListener("click", () => {
       currentPhaseIndex = 0;
       remainingIntervalTime = null;
       remainingTotalTime = calculateTotalExerciseTime();
-      stopButton.classList.remove("d-none");
+      stopButton.classList.remove("invisible");
       startCountdown();
     }, 1000);
   });

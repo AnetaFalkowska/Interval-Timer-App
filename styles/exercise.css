@@ -7,6 +7,17 @@
     color: rgb(87, 92, 97);
 }
 
+.mute-button:hover {
+color:#0b0100;
+}
+
+.color-card {
+    /* box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1), 
+                inset -5px -5px 10px rgba(255, 255, 255, 0.3); */
+                box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), 
+                inset -2px -2px 5px rgba(255, 255, 255, 0.3);
+}
+
 .prepare {
     background-color: #bbbec0;
 }
