@@ -3,11 +3,11 @@ import {
   deleteExercise,
   updateCurrentExercise,
   saveEditedExerciseIDToLocalStorage,
-  selectedExerciseIndex
+  selectedExerciseIndex,
 } from "../data/exercises.js";
 import { convertToTimeString } from "./utils/time.js";
 
-let preselecetedExercise = selectedExerciseIndex
+let preselecetedExercise = selectedExerciseIndex;
 
 const exerciseListElement = document.querySelector(".js-exercise-list");
 const startDeleteExerciseButton = document.querySelector(
@@ -17,14 +17,16 @@ const startExerciseButton = document.querySelector(".js-start-exercise");
 const deleteExerciseButton = document.querySelector(".js-delete-exercise");
 const editExerciseButton = document.querySelector(".js-edit-exercise");
 
-window.addEventListener("beforeunload", ()=>{localStorage.removeItem("selectedExerciseIndex")});
+window.addEventListener("beforeunload", () => {
+  localStorage.removeItem("selectedExerciseIndex");
+});
 
 function generateExerciseListHTML() {
   let html = "";
 
-  userExercises.reverse().forEach((el, index) => {
-    const isChecked = index === (preselecetedExercise || 0)
-  html += `
+  userExercises.forEach((el, index) => {
+    const isChecked = index === (preselecetedExercise || userExercises.length-1);
+    html += `
  
 <input
           class="list-group-item-check pe-none"
@@ -45,9 +47,6 @@ function generateExerciseListHTML() {
     )}  Rest: ${convertToTimeString(el.exercise[2].durationInSeconds)}</span
           >
         </label>
-
-
-
 `;
   });
   return html;
@@ -66,8 +65,7 @@ function handleDeleteExercise() {
   ).value;
   if (selectedExerciseId) {
     deleteExercise(selectedExerciseId);
-    preselecetedExercise = 0;
-    init()
+    init();
   }
 }
 
@@ -76,8 +74,8 @@ function handleEditExercise() {
     'input[name="exercises"]:checked'
   ).value;
   if (selectedExerciseId) {
-    saveEditedExerciseIDToLocalStorage(selectedExerciseId)
-    window.open("../interval.html", "_self")    
+    saveEditedExerciseIDToLocalStorage(selectedExerciseId);
+    window.open("../interval.html", "_self");
   }
 }
 
@@ -99,6 +97,7 @@ function setUpButtons() {
   if (userExercises.length === 0) {
     startDeleteExerciseButton.disabled = true;
     startExerciseButton.disabled = true;
+    editExerciseButton.disabled = true;
   } else {
     deleteExerciseButton.addEventListener("click", handleDeleteExercise);
     startExerciseButton.addEventListener("click", handleStartExercise);
@@ -107,7 +106,7 @@ function setUpButtons() {
 }
 
 function init() {
-  renderExerciseList();  
+  renderExerciseList();
   setUpButtons();
 }
 

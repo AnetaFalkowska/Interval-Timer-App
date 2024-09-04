@@ -1,35 +1,35 @@
 .border-dashed {
-    --bs-border-style: dashed;
+  --bs-border-style: dashed;
 }
 
 .timer {
-    font-size: 70px;
-    color: rgb(87, 92, 97);
+  font-size: 70px;
+  color: rgb(87, 92, 97);
 }
 
 .mute-button:hover {
-color:#0b0100;
+  color: #0b0100;
 }
 
-.color-card {
-    /* box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1), 
-                inset -5px -5px 10px rgba(255, 255, 255, 0.3); */
-                box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), 
-                inset -2px -2px 5px rgba(255, 255, 255, 0.3);
-}
+/* .color-card {
+  box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.3);
+} */
 
 .prepare {
-    background-color: #bbbec0;
+  background-color: #bbbec0;
 }
 
 .work {
-    background-color: #f5d313
+  background-color: #f5d313;
 }
 
 .rest {
-    background-color: #57c4cb
+  background-color: #57c4cb;
 }
 
 .cool-down {
-    background-color: #1ca865
-} 
+  background-color: #1ca865;
+}
