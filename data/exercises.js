@@ -29,9 +29,10 @@ export function deleteExercise(id) {
   localStorage.removeItem("selectedExerciseIndex");
 }
 
-export function updateUserExercises(exercise, id) {
+export function updateUserExercises(exercise, name, id) {
   const editedExerciseIndex = userExercises.findIndex((el) => el.id === id);
   userExercises[editedExerciseIndex].exercise = [...exercise];
+  userExercises[editedExerciseIndex].name = name;
   saveUserExerciseToLocalStorage();
   localStorage.removeItem("editedExerciseId");
   localStorage.setItem(

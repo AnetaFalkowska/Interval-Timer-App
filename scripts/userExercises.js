@@ -25,7 +25,7 @@ function generateExerciseListHTML() {
   let html = "";
 
   userExercises.forEach((el, index) => {
-    const isChecked = index === (preselecetedExercise || userExercises.length-1);
+    const isChecked = index === (preselecetedExercise !== null ? preselecetedExercise : userExercises.length-1);
     html += `
  
 <input

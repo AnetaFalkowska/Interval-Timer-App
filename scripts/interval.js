@@ -96,7 +96,7 @@ function populateFormWithExerciseData(editedExercise) {
 function setupIsEditingUI(id, editedExercise) {
   const exerciseName = document.querySelector(".js-edited-name")
   exerciseName.classList.remove("d-none")
-  exerciseName.innerHTML= editedExercise.name
+  exerciseName.value= editedExercise.name
   const actionsElement = document.querySelector(".js-actions")
   actionsElement.classList.remove('d-grid', 'd-md-flex', 'justify-content-md-between');
   actionsElement.classList.add('d-flex', 'justify-content-center'),
@@ -110,7 +110,7 @@ function setupIsEditingUI(id, editedExercise) {
     e.preventDefault();
     if (validateForm()) {
       const exercise = collectIntervalData();
-      updateUserExercises(exercise, id);
+      updateUserExercises(exercise, exerciseName.value, id);
       window.open("../userExercises.html", "_self");
     }
   });
