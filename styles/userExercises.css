@@ -1,7 +1,9 @@
+
 .list-group {
   width: 100%;
-  max-width: 460px;
+  max-width: 450px;
   margin-inline: 1.5rem;
+  text-align: center;
 }
 
 .list-group-item-check {
@@ -19,4 +21,28 @@
 
 .list-group-checkable .list-group-item {
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+.list-group-item:hover {
+  background-color: #f7fafa;
+}
+
+.exercise-detail {
+  display: inline-block;
+  background-color: #e5e8eb;
+  padding: 5px 12px;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.list-group-item-check:checked + .list-group-item .exercise-detail {
+  color: #017c43;
+}
+
+.list-button-container {
+  width: 100%;
+  max-width: 450px;
+  margin:0 auto;
+}
+

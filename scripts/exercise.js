@@ -2,6 +2,7 @@ lucide.createIcons();
 import { currentExercise } from "../data/exercises.js";
 import { convertToTimeString } from "./utils/time.js";
 
+const exerciseName = document.querySelector(".js-exercise-name")
 const remainingTimeFlag = document.querySelector(".js-remaining-time");
 const card = document.querySelector(".js-card");
 const phaseName = document.querySelector(".js-phase-name");
@@ -27,17 +28,17 @@ const colorClasses = {
   CoolDown: "cool-down",
 };
 
-function countDown({ id, durationInSeconds }, playAudio) {
+function countDown({ title, durationInSeconds }, playAudio) {
   return new Promise((res, rej) => {
     if (stopCountdown) {
       rej("Countdown stopped");
       return;
     }
-    if (!isMuted && playAudio && (id === "CoolDown" || id === "Prepare")) {
-      playPhaseSound(id);
+    if (!isMuted && playAudio && (title === "CoolDown" || title === "Prepare")) {
+      playPhaseSound(title);
     }
 
-updateDisplay(id, durationInSeconds)
+updateDisplay(title, durationInSeconds)
     
 
     const intervalIdentifier = setInterval(() => {
@@ -54,12 +55,12 @@ updateDisplay(id, durationInSeconds)
         clearInterval(intervalIdentifier);
         res();
       } else {
-        if (!isMuted && id !== "CoolDown" && durationInSeconds === 0) {
+        if (!isMuted && title !== "CoolDown" && durationInSeconds === 0) {
           playPhaseSound("Beep2");
         }
         if (
           !isMuted &&
-          id !== "CoolDown" &&
+          title !== "CoolDown" &&
           durationInSeconds <= 3 &&
           durationInSeconds > 0
         ) {
@@ -72,16 +73,16 @@ updateDisplay(id, durationInSeconds)
   });
 }
 
-function playPhaseSound(id) {
-  let sound = new Audio("/sounds/" + id + ".mp3");
+function playPhaseSound(title) {
+  let sound = new Audio("/sounds/" + title + ".mp3");
   sound.play();
 }
 
-function updateDisplay(id, durationInSeconds) {
-  const colorClass = colorClasses[id] || "";
+function updateDisplay(title, durationInSeconds) {
+  const colorClass = colorClasses[title] || "";
   card.className =
     "shadow-lg col-md-6 position-relative p-5 text-center text-muted rounded-5 align-items-center js-card " + colorClass;
-  phaseName.innerHTML = id;
+  phaseName.innerHTML = title;
   remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime);
   phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
 
@@ -121,13 +122,15 @@ remainingTotalTime = calculateTotalExerciseTime();
 // }
 
 function startCountdown(startIndex = 0) {
+  if (currentExercise.title) {
+  exerciseName.innerHTML = currentExercise.title};
   const countDownArray = phasesArray.slice(startIndex).map((el, index) => {
     const newFunction = () => {
       currentPhaseIndex = startIndex + index;
       const isPhaseCut = remainingIntervalTime !== null && index === 0;
       return countDown(
         {
-          id: el.id,
+          title: el.title,
           durationInSeconds: isPhaseCut
             ? remainingIntervalTime
             : el.durationInSeconds,

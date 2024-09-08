@@ -40,14 +40,16 @@ function generateExerciseListHTML() {
           class="list-group-item rounded-3 py-3 custom-card"
           for="${el.id}"
         >
-        ${el.name}
-          <span class="d-block small opacity-50"
-            >Sets: ${el.exercise[4].sets}   Work: ${convertToTimeString(
-      el.exercise[1].durationInSeconds
-    )}  Rest: ${convertToTimeString(el.exercise[2].durationInSeconds)}</span
-          >
+        <span class="fw-medium fs-4 fs-sm-5 mb-5">${el.name}</span>
+         
+          <span class="exercise-detalis d-block fs-6 opacity-50 mt-2">
+            <span class="exercise-detail">Sets: ${el.exercise[4].sets}</span>
+            <span class="exercise-detail">Work: ${convertToTimeString(el.exercise[1].durationInSeconds)}</span>
+            <span class="exercise-detail">Rest: ${convertToTimeString(el.exercise[2].durationInSeconds)}</span>
+          </span>
         </label>
 `;
+
   });
   return html;
 }

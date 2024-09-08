@@ -40,7 +40,7 @@
               >My Exercises</a
             >
           </li>
-          <li class="nav-item ">
+          <li class="nav-item">
             <a
               href="../interval.html"
               class="nav-link bg-secondary text-white my-auto"
@@ -88,7 +88,10 @@
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-secondary js-save-exercise">
+                <button
+                  type="button"
+                  class="btn btn-secondary js-save-exercise"
+                >
                   Save
                 </button>
               </div>
@@ -96,100 +99,166 @@
           </div>
         </div>
       </div>
-      <div class="main">
-
-        <form class="col-md-6 col-lg-4 js-form">
+      <div class="main col-sm-8 col-md-7 col-lg-6 col-xl-4">
+        <h3 class="text-center mb-3">Create Your Interval Timer</h3>
+        <form class="js-form">
           <input
-        type="text" class="d-none form-control form-control-lg text-secondary js-edited-name mb-5"
-        />
-          <div class="custom-card text-center fw-bold">
-            <label for="prepare" class="form-label"
+            type="text"
+            class="d-none form-control form-control-lg text-secondary js-edited-name mb-5"
+          />
+          <div id="Prepare" class="custom-card text-center fw-bold">
+            <label class="form-label"
               ><i data-lucide="loader-circle" class="icon"></i>Prepare</label
             >
-            <input
-              type="text"
-              placeholder="mm:ss"
-              class="form-control js-duration"
-              id="prepare"
-              data-id="Prepare"
-              required
-            />
-
+            <div class="form-control-wrapper">
+              <input
+                type="number"
+                placeholder="mm"
+                step="1"
+                max="59"
+                min="0"
+                class="form-control js-duration"
+                id="prepare-minutes"
+                data-title="Prepare"
+                required
+              /><span class="fs-3"> : </span><input
+                type="number"
+                placeholder="ss"
+                step="1"
+                max="59"
+                min="0"
+                class="form-control js-duration"
+                id="prepare-seconds"
+                data-title="Prepare"
+                required
+              />
+            </div>
+            <div class="feedback">
+              Please enter time in mm:ss format!
+            </div>
           </div>
 
-          <div class="custom-card text-center fw-bold">
-            <label for="work" class="form-label"
+          <div id="Work" class="custom-card text-center fw-bold">
+            <label class="form-label"
               ><i data-lucide="biceps-flexed" class="icon"></i>Work</label
             >
-            <input
-              type="text"
-              placeholder="mm:ss"
-              class="form-control js-duration"
-              id="work"
-              data-id="Work"
-            />
-            <div class="feedback feedback-Work">
+            <div class="form-control-wrapper">
+              <input
+                type="number"
+                placeholder="mm"
+                step="1"
+                max="59"
+                min="0"
+                class="form-control js-duration"
+                id="work-minutes"
+                data-title="Work"
+                required
+              /><span class="fs-3"> : </span><input
+                type="number"
+                placeholder="ss"
+                step="1"
+                max="59"
+                min="0"
+                class="form-control js-duration"
+                id="work-seconds"
+                data-title="Work"
+                required
+              />
+            </div>
+            <div class="feedback">
               Please enter time in mm:ss format!
             </div>
           </div>
-          <div class="custom-card text-center fw-bold">
-            <label for="rest" class="form-label"
+          <div id="Rest" class="custom-card text-center fw-bold">
+            <label class="form-label"
               ><i data-lucide="circle-ellipsis" class="icon"></i>Rest</label
             >
-            <input
-              type="text"
-              placeholder="mm:ss"
-              class="form-control js-duration"
-              id="rest"
-              data-id="Rest"
-            />
-            <div class="feedback feedback-Rest">
+            <div class="form-control-wrapper">
+              <input
+                type="number"
+                placeholder="mm"
+                step="1"
+                max="59"
+                min="0"
+                class="form-control js-duration"
+                id="rest-minutes"
+                data-title="Rest"
+                required
+              /><span class="fs-3"> : </span><input
+                type="number"
+                placeholder="ss"
+                step="1"
+                max="59"
+                min="0"
+                class="form-control js-duration"
+                id="rest-seconds"
+                data-title="Rest"
+                required
+              />
+            </div>
+            <div class="feedback">
               Please enter time in mm:ss format!
             </div>
           </div>
-          <div class="custom-card text-center fw-bold">
-            <label for="coolDown" class="form-label"
+          <div id="CoolDown" class="custom-card text-center fw-bold">
+            <label class="form-label"
               ><i data-lucide="fan" class="icon"></i>Cool Down</label
             >
-            <input
-              type="text"
-              placeholder="mm:ss"
-              class="form-control js-duration"
-              id="coolDown"
-              data-id="CoolDown"
-            />
-            <div class="feedback feedback-CoolDown">
+            <div class="form-control-wrapper">
+              <input
+                type="number"
+                placeholder="mm"
+                step="1"
+                max="59"
+                min="0"
+                class="form-control js-duration"
+                id="cooldown-minutes"
+                data-title="CoolDown"
+                required
+              /><span class="fs-3"> : </span><input
+                type="number"
+                placeholder="ss"
+                step="1"
+                max="59"
+                min="0"
+                class="form-control js-duration"
+                id="cooldown-seconds"
+                data-title="CoolDown"
+                required
+              />
+            </div>
+            <div class="feedback">
               Please enter time in mm:ss format!
             </div>
           </div>
-          <div class="custom-card text-center fw-bold">
+          <div id="sets" class="custom-card text-center fw-bold">
             <label for="sets" class="form-label"
               ><i data-lucide="chevrons-right" class="icon"></i>Sets</label
             >
             <input
               type="number"
+              min="0"
               placeholder="0"
-              class="form-control js-sets"
+              class="form-control w-50 mx-auto js-sets"
               id="sets"
-              data-id="sets"
+              data-title="sets"
             />
-            <div class="feedback feedback-sets">
+            <div class="feedback">
               Plese enter an integer greater than 0!
             </div>
           </div>
           <div
-            class="d-grid gap-2 d-md-flex mt-5 justify-content-md-between js-actions"
+            class="d-flex flex-column-reverse gap-2 flex-sm-row mt-4 justify-content-sm-between js-actions"
           >
             <button
               type="button"
-              class="btn btn-info fs-4 shadow"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
+              class="btn btn-info fs-4 shadow js-saveToPreset"
+
             >
               Save to Preset
             </button>
             <button
-              class="btn btn-secondary fs-4 js-quickStart-exercise shadow"
+              class="btn btn-secondary fs-4 shadow js-quickStart-exercise"
               type="submit"
             >
               Quick Start
@@ -199,16 +268,19 @@
       </div>
     </div>
     <div class="container fixed-bottom">
-     
-      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-2 border-top border-dark-subtle">
-        
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-2 border-top border-dark-subtle"
+      >
         <div class="col-md-4 w-auto">
-          <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Aneta Falkowska</span>
+          <span class="mb-3 mb-md-0 text-body-secondary"
+            >© 2024 Aneta Falkowska</span
+          >
         </div>
-        
-    
+
         <ul class="nav col-md-4 list-unstyled w-auto text-end">
-          <li class="ms-3"><a class="text-body-secondary" href="#">Link do strony</a></li>
+          <li class="ms-3">
+            <a class="text-body-secondary" href="#">Link do strony</a>
+          </li>
         </ul>
       </footer>
     </div>
