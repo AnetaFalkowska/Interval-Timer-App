@@ -188,7 +188,7 @@ restartButton.addEventListener("click", () => {
   });
 
 document.querySelector(".js-close").addEventListener("click", () => {
-  window.open("../interval.html", "_self");
+  window.open("../index.html", "_self");
 });
 
 document.querySelector(".js-mute").addEventListener("click", function () {

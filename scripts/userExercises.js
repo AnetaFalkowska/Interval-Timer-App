@@ -68,7 +68,7 @@ function generateExerciseListHTML() {
 
 function renderExerciseList() {
   if (userExercises.length === 0) {
-    exerciseListElement.innerHTML = `<div>There are no exercises yet, <a href="../interval.html">click here</a> to add some or try<button class="text-primary text-secondary fs-5 fw-semibold bg-transparent border-0 js-demo">demo exercises</button>.</div>`;
+    exerciseListElement.innerHTML = `<div>There are no exercises yet, <a href="../index.html">click here</a> to add some or try<button class="text-primary text-secondary fs-5 fw-semibold bg-transparent border-0 js-demo">demo exercises</button>.</div>`;
     document.querySelector(".js-demo").addEventListener("click", () => {
       demoExercises.forEach((el) => userExercises.push(el));
       saveUserExerciseToLocalStorage();
@@ -95,7 +95,7 @@ function handleEditExercise() {
   ).value;
   if (selectedExerciseId) {
     saveEditedExerciseIDToLocalStorage(selectedExerciseId);
-    window.open("../interval.html", "_self");
+    window.open("../index.html", "_self");
   }
 }
 
