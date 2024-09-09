@@ -37,3 +37,20 @@
 .invalid .feedback {
   display: block;
 }
+
+[data-tooltip] {
+  position:relative;
+}
+
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -100%;
+  right:0;
+  /* opacity:0; */
+  padding: 5px;
+  transition: opacity 0.15s;
+  background-color: lightgray;
+  color:black;
+  white-space: nowrap;
+} 
