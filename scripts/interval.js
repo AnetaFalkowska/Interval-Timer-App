@@ -1,6 +1,7 @@
 import { isValidDuration, isValidSets } from "./utils/validation.js";
 import { convertToSeconds, convertToTimeString } from "./utils/time.js";
 import {
+  initialiseDemoExercises,
   addToUserExercises,
   editedExerciseId,
   getExerciseById,
@@ -27,6 +28,8 @@ window.addEventListener("load", () => {
 window.addEventListener("beforeunload", () => {
   localStorage.removeItem("editedExerciseId");
 });
+
+initialiseDemoExercises();
 
 function createUniquePhasesArray() {
   const phasesArray = Array.from(exercisePhaseInputs).map((el) => {

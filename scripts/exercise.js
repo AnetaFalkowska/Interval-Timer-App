@@ -152,7 +152,7 @@ function startCountdown(startIndex = 0) {
 stopButton.addEventListener("click", function () {
   if (stopCountdown) {
     stopCountdown = false;
-    this.innerHTML = "Stop";
+    this.innerHTML = "Pause";
     startCountdown(currentPhaseIndex);
   } else {
     stopCountdown = true;
@@ -165,7 +165,7 @@ document.addEventListener("keydown", (event) => {
     event.preventDefault();
     if (stopCountdown) {
       stopCountdown = false;
-      stopButton.innerHTML = "Stop";
+      stopButton.innerHTML = "Pause";
       startCountdown(currentPhaseIndex);
     } else {
       stopCountdown = true;
@@ -177,7 +177,7 @@ document.addEventListener("keydown", (event) => {
 restartButton.addEventListener("click", () => {
     stopCountdown = true;  
     setTimeout(() => {
-      stopButton.innerHTML = "Stop";
+      stopButton.innerHTML = "Pause";
       stopCountdown = false;
       currentPhaseIndex = 0;
       remainingIntervalTime = null;
