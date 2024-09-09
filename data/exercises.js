@@ -1,3 +1,7 @@
+
+
+
+
 export let currentExercise =
   JSON.parse(localStorage.getItem("currentExercise")) || [];
 export let userExercises =
@@ -56,3 +60,59 @@ export function getExerciseById(id) {
     ) || null
   );
 }
+
+const demoExercises =
+[
+  {
+      "id": "236cde0ddf2f",
+      "name": "demo exercise 1",
+      "exercise": [
+          {
+              "title": "Prepare",
+              "durationInSeconds": 7
+          },
+          {
+              "title": "Work",
+              "durationInSeconds": 3
+          },
+          {
+              "title": "Rest",
+              "durationInSeconds": 2
+          },
+          {
+              "title": "CoolDown",
+              "durationInSeconds": 5
+          },
+          {
+              "title": "sets",
+              "sets": 3
+          }
+      ]
+  },
+  {
+      "id": "3522bb2e8a5ce",
+      "name": "demo exercise 2",
+      "exercise": [
+          {
+              "title": "Prepare",
+              "durationInSeconds": 7
+          },
+          {
+              "title": "Work",
+              "durationInSeconds": 10
+          },
+          {
+              "title": "Rest",
+              "durationInSeconds": 4
+          },
+          {
+              "title": "CoolDown",
+              "durationInSeconds": 3
+          },
+          {
+              "title": "sets",
+              "sets": 2
+          }
+      ]
+  }
+]

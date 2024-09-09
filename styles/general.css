@@ -1,6 +1,7 @@
 body {
   height: 100vh;
   background-color: #e3e5e3;  
+  box-sizing: border-box;
 }
 
 .main { 
@@ -12,10 +13,14 @@ body {
 }
 
 .custom-card {
-  margin-top: 0;
+  margin: 0 3px 10px;
   background-color: white;
   border-radius: 10px;
-  margin-bottom: 10px;
   padding: 15px;
   box-shadow: 0 0 3px rgba(0,0,0,0.3)
+}
+
+.footer,
+.header {
+  background-color: #e3e5e3;
 }

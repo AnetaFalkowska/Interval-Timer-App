@@ -21,7 +21,9 @@ window.addEventListener("beforeunload", () => {
   localStorage.removeItem("selectedExerciseIndex");
 });
 
+
 function generateExerciseListHTML() {
+  
   let html = "";
 
   userExercises.forEach((el, index) => {
@@ -37,16 +39,16 @@ function generateExerciseListHTML() {
   ${isChecked ? "checked" : ""}
         />
         <label
-          class="list-group-item rounded-3 py-3 custom-card"
+          class="list-group-item custom-card"
           for="${el.id}"
         >
-        <span class="fw-medium fs-4 fs-sm-5 mb-5">${el.name}</span>
+        <p class="fw-medium fs-4 fs-sm-5 mb-3">${el.name}</p>
          
-          <span class="exercise-detalis d-block fs-6 opacity-50 mt-2">
+          <p class="d-flex justify-content-center gap-2 fs-6 opacity-50 mb-0">
             <span class="exercise-detail">Sets: ${el.exercise[4].sets}</span>
             <span class="exercise-detail">Work: ${convertToTimeString(el.exercise[1].durationInSeconds)}</span>
             <span class="exercise-detail">Rest: ${convertToTimeString(el.exercise[2].durationInSeconds)}</span>
-          </span>
+          </p>
         </label>
 `;
 

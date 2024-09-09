@@ -7,7 +7,7 @@ import {
   updateUserExercises,
 } from "../data/exercises.js";
 
-console.log("działa");
+
 
 const exercisePhaseInputs = document.querySelectorAll(".js-duration");
 const setsInput = document.querySelector(".js-sets");
@@ -129,6 +129,7 @@ function populateFormWithExerciseData(editedExercise) {
 }
 
 function setupIsEditingUI(id, editedExercise) {
+  document.querySelector(".js-form-title").classList.add("d-none")
   const exerciseName = document.querySelector(".js-edited-name");
   exerciseName.classList.remove("d-none");
   exerciseName.value = editedExercise.name;

@@ -29,11 +29,9 @@
 }
 
 .exercise-detail {
-  display: inline-block;
   background-color: #e5e8eb;
   padding: 5px 12px;
   border-radius: 10px;
-  margin-right: 5px;
 }
 
 .list-group-item-check:checked + .list-group-item .exercise-detail {
@@ -46,3 +44,8 @@
   margin:0 auto;
 }
 
+@media only screen and (max-width: 576px) {
+  .exercise-detail {
+    padding: 3px 5px;
+  }
+}

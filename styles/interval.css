@@ -2,24 +2,19 @@
   border: none;
   text-align: center;
   font-size: 30px;
-  outline:none;
-padding:0;
-background-color: #e1faee;
+  outline: none;
+  padding: 0;
+  background-color: #e1faee;
 }
 
 .form-control-wrapper .form-control {
   display: inline-block;
-  width:auto;
+  width: auto;
 }
 
 .form-control::placeholder {
   color: rgb(175, 173, 173);
-
 }
-
-/* .form-control.invalid {
-  border: solid 1px red;
-} */
 
 .feedback {
   display: none;
@@ -29,17 +24,10 @@ background-color: #e1faee;
   margin: 5px auto;
 }
 
-/* .feedback.invalid {
-  display: block;
-} */
-
-
-
 .icon {
   margin-right: 8px;
   color: #1ca865;
 }
-
 
 .invalid .form-control {
   border: solid 1px red;
