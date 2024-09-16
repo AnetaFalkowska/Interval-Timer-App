@@ -33,3 +33,7 @@
 .cool-down {
   background-color: #1ca865;
 }
+
+.exercise-actions > button {
+  width:200px;
+}
