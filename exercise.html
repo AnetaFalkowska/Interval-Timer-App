@@ -15,7 +15,7 @@
   <body>
     <div class="container">
       <header
-        class="sticky-top d-flex flex-wrap justify-content-center py-3 mb-3 mb-sm-5 border-bottom border-dark-subtle header"
+        class="sticky-top d-flex flex-wrap justify-content-center py-3 mb-3 mb-sm-4 border-bottom border-dark-subtle header"
       >
         <a
           href="../index.html"
@@ -46,8 +46,7 @@
         </ul>
       </header>
       <div class="main pb-5">
-        <div class="mb-4 text-body-emphasis">
-          <h3 class="text-center mb-3 js-exercise-name"></h3>
+        <div class="mb-3 text-body-emphasis">
           <h4>
             Remaining Time
             <span class="badge bg-danger js-remaining-time fs-4">00:00</span>
@@ -55,7 +54,7 @@
         </div>
 
         <div
-          class="col-md-6 position-relative bg-card shadow-lg rounded-5 text-center text-muted p-3 js-card mb-4">
+          class="col-md-6 position-relative bg-card shadow-lg rounded-5 text-center text-muted p-5 p-sm-4 pb-sm-1 js-card mb-4">
           <button
             type="button"
             class="text-dark-emphasis position-absolute top-0 start-0 p-3 m-2 bg-transparent border-0 hover: rounded-pill js-mute"
@@ -68,25 +67,25 @@
             class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill js-close"
             aria-label="Close"
           ></button>
-          <h1 class="text-dark-emphasis mt-2 mt-sm-5 pt-5 js-phase-name">
+          <h1 class="fs-1 text-dark-emphasis mt-2 pt-2 js-phase-name">
             Prepare
           </h1>
-          <p class="timer mx-auto pb-3 mb-2 mb-sm-4 js-phase-duration">00:00</p>
+          <p class="timer mx-auto pb-2 mb-1 js-phase-duration">00:00</p>
           <div class="d-inline-flex flex-column mx-auto justify-content-center exercise-actions">
             <button
-              class="btn btn-primary fs-3 px-5 mb-3 mt-2 mt-sm-5 js-stop-countdown"
+              class="btn btn-primary fs-4 px-5 mb-3 mt-2 js-stop-countdown"
               type="button"
             >
               Pause
             </button>
             <button
-              class="btn btn-outline-primary fs-3 px-5 js-restart-countdown"
+              class="btn btn-outline-primary fs-4 px-5 js-restart-countdown"
               type="button"
             >
               Restart
             </button>
           </div>
-          <p class="d-none d-sm-block mt-3 text-dark-emphasis fs-6">
+          <p class="d-none d-sm-block mt-3 mb-2 text-dark-emphasis fs-6">
             Press <strong>Space</strong> to pause or continue the exercise.
           </p>
         </div>
