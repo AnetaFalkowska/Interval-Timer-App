@@ -81,7 +81,7 @@ function playPhaseSound(title) {
 function updateDisplay(title, durationInSeconds) {
   const colorClass = colorClasses[title] || "";
   card.className =
-    "shadow-lg col-md-6 position-relative p-5 text-center text-muted rounded-5 align-items-center js-card " + colorClass;
+    "shadow-lg col-md-6 position-relative p-5 text-center text-muted rounded-5 align-items-center js-card mb-4 " + colorClass;
   phaseName.innerHTML = title;
   remainingTimeFlag.innerHTML = convertToTimeString(remainingTotalTime);
   phaseDuration.innerHTML = convertToTimeString(durationInSeconds);
