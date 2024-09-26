@@ -7,19 +7,32 @@ const remainingTimeFlag = document.querySelector(".js-remaining-time");
 const card = document.querySelector(".js-card");
 const phaseName = document.querySelector(".js-phase-name");
 const phaseDuration = document.querySelector(".js-phase-duration");
-const restartButton = document.querySelector(".js-restart-countdown");
+const startButton = document.querySelector(".js-start-restart");
 const stopButton = document.querySelector(".js-stop-countdown");
+let exerciseStarted = false
 let stopCountdown = false;
 let currentPhaseIndex = 0;
 let remainingIntervalTime = null;
 let remainingTotalTime;
 let isMuted = false;
 
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    startCountdown();
-  }, 500);
-});
+// window.addEventListener("load", () => {
+//   setTimeout(() => {
+//     startCountdown();
+//   }, 500);
+// });
+
+startButton.addEventListener("click", () => {
+  if (!exerciseStarted) {
+    startCountdown()
+    startButton.innerHTML = "Restart";
+    stopButton.removeAttribute("disabled")
+    exerciseStarted = true
+  } else {
+    restartExercise()
+  }
+    
+  });
 
 const colorClasses = {
   Prepare: "prepare",
@@ -174,18 +187,18 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-restartButton.addEventListener("click", () => {
-    stopCountdown = true;  
-    setTimeout(() => {
-      stopButton.innerHTML = "Pause";
-      stopCountdown = false;
-      currentPhaseIndex = 0;
-      remainingIntervalTime = null;
-      remainingTotalTime = calculateTotalExerciseTime();
-      stopButton.classList.remove("invisible");
-      startCountdown();
-    }, 1000);
-  });
+function restartExercise() {
+  stopCountdown = true;  
+  setTimeout(() => {
+    stopButton.innerHTML = "Pause";
+    stopCountdown = false;
+    currentPhaseIndex = 0;
+    remainingIntervalTime = null;
+    remainingTotalTime = calculateTotalExerciseTime();
+    stopButton.classList.remove("invisible");
+    startCountdown();
+  }, 1000);
+}
 
 document.querySelector(".js-close").addEventListener("click", () => {
   window.open("../index.html", "_self");
