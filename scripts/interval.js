@@ -8,8 +8,6 @@ import {
   updateUserExercises,
 } from "../data/exercises.js";
 
-
-
 const exercisePhaseInputs = document.querySelectorAll(".js-duration");
 const setsInput = document.querySelector(".js-sets");
 const quickStartButton = document.querySelector(".js-quickStart-exercise");
@@ -119,20 +117,20 @@ function populateFormWithExerciseData(editedExercise) {
   console.log(exerciseData);
   exerciseData.map((phase) => {
     if (phase.title !== "sets") {
-      const minutes = Math.floor(phase.durationInSeconds / 60)
+      const minutes = Math.floor(phase.durationInSeconds / 60);
       const seconds = phase.durationInSeconds % 60;
-      const titleLowerCase = phase.title.toLowerCase()
+      const titleLowerCase = phase.title.toLowerCase();
       const inputMinutes = document.querySelector(`#${titleLowerCase}-minutes`);
       const inputSeconds = document.querySelector(`#${titleLowerCase}-seconds`);
-      inputMinutes.value = formatTimeValue(minutes)
-      inputSeconds.value = formatTimeValue(seconds)
-    }    
+      inputMinutes.value = formatTimeValue(minutes);
+      inputSeconds.value = formatTimeValue(seconds);
+    }
   });
   setsInput.value = exerciseData[4].sets;
 }
 
 function setupIsEditingUI(id, editedExercise) {
-  document.querySelector(".js-form-title").classList.add("d-none")
+  document.querySelector(".js-form-title").classList.add("d-none");
   const exerciseName = document.querySelector(".js-edited-name");
   exerciseName.classList.remove("d-none");
   exerciseName.value = editedExercise.name;
@@ -155,21 +153,20 @@ function setupIsEditingUI(id, editedExercise) {
   });
 }
 
-
 function formatTimeValue(value) {
-let valueInt = parseInt(value);
-if (valueInt > 59) valueInt = 59;
-return valueInt.toString().padStart(2, "0")
+  let valueInt = parseInt(value);
+  if (valueInt > 59) valueInt = 59;
+  return valueInt.toString().padStart(2, "0");
 }
 
-
-
 exercisePhaseInputs.forEach((input) =>
-  input.addEventListener("input", function() {this.value = formatTimeValue(this.value)})
+  input.addEventListener("input", function () {
+    this.value = formatTimeValue(this.value);
+  })
 );
 
-exercisePhaseInputs.forEach((input) =>
-  input.addEventListener("blur", function () {
+exercisePhaseInputs.forEach((input) => {
+  function handleInputChange() {
     if (this.value.trim() !== "") {
       const siblingInputsTitle = this.dataset.title.toLowerCase();
       const siblingId = this.id.includes("minutes")
@@ -185,8 +182,11 @@ exercisePhaseInputs.forEach((input) =>
         siblingInput.value = "00";
       }
     }
-  })
-);
+  }
+
+  input.addEventListener("blur", handleInputChange);
+  input.addEventListener("change", handleInputChange);
+});
 
 // function validateForm() {
 //   document
